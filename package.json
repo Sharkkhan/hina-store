@@ -1,0 +1,15 @@
+{
+  "name": "hina-store",
+  "version": "1.0.0",
+  "private": true,
+  "description": "HINA embroidered sets. Static storefront with a Stripe Checkout function.",
+  "scripts": {
+    "dev": "vercel dev"
+  },
+  "dependencies": {
+    "stripe": "^23.0.0"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

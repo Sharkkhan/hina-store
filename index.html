@@ -1,0 +1,840 @@
+<title>HINA</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gilda+Display&family=Jost:wght@300;400;500&family=Noto+Nastaliq+Urdu:wght@400&display=swap">
+<style>
+/* Layout concept: a walk-in closet. Arched doors in a row; the whole stage takes on the colour of the set you are holding. */
+:root {
+  --bg: #ECE8E1;
+  --surface: #F5F2EC;
+  --fg: #1A1A1F;
+  --muted: #66625A;
+  --line: rgba(26, 26, 31, .14);
+  --accent: #8C6A2F;
+  --tone: #1F2742;
+  --on-tone: #F0EADF;
+  --font-display: "Gilda Display", "Didot", "Bodoni 72", Georgia, serif;
+  --font-body: "Jost", "Helvetica Neue", Arial, sans-serif;
+  --font-urdu: "Noto Nastaliq Urdu", "Noto Naskh Arabic", serif;
+  --ease: cubic-bezier(.22, 1, .36, 1);
+  --cw: clamp(236px, 68vw, 318px);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #111115; --surface: #1A1A20; --fg: #EEE8DD; --muted: #A39E93;
+    --line: rgba(238, 232, 221, .16); --accent: #CBA462; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #111115; --surface: #1A1A20; --fg: #EEE8DD; --muted: #A39E93;
+  --line: rgba(238, 232, 221, .16); --accent: #CBA462; color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+body {
+  background: var(--bg); color: var(--fg);
+  font-family: var(--font-body); font-weight: 400; font-size: 16px; line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+body::before {
+  content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px);
+  z-index: 40; background: var(--bg);
+}
+h1, h2, h3, p, dl, dd { margin: 0; }
+h1, h2, h3 { font-family: var(--font-display); font-weight: 400; text-wrap: balance; letter-spacing: -.005em; }
+button { font: inherit; color: inherit; cursor: pointer; }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.closet :focus-visible { outline-color: currentColor; }
+
+.wrap {
+  width: 100%; max-width: 1240px; margin-inline: auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.eyebrow { font-size: .72rem; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); }
+
+/* ---------- Header ---------- */
+.bar {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20;
+  background: color-mix(in srgb, var(--bg) 90%, transparent);
+  -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--line);
+}
+.bar .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 64px; }
+.mark { font-family: var(--font-display); font-size: 1.7rem; letter-spacing: .22em; text-decoration: none; line-height: 1; white-space: nowrap; display: inline-flex; align-items: baseline; }
+.mark-h { width: .79em; height: .69em; margin-right: .22em; flex: none; overflow: visible; display: inline-block; }
+.nav { display: flex; align-items: center; gap: clamp(14px, 3vw, 34px); }
+.nav a, .bag-btn, .text-btn {
+  font-size: .78rem; letter-spacing: .14em; text-transform: uppercase; text-decoration: none; font-weight: 500;
+  background: none; border: 0; padding: 8px 0; position: relative;
+}
+.nav a::after, .bag-btn::after, .text-btn::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: 2px; height: 1px; background: currentColor;
+  transform: scaleX(0); transform-origin: left; transition: transform .25s var(--ease);
+}
+.nav a:hover::after, .bag-btn:hover::after, .text-btn:hover::after { transform: scaleX(1); }
+.nav .hide-s { display: none; }
+@media (min-width: 700px) { .nav .hide-s { display: inline; } }
+
+/* ---------- Hero ---------- */
+.hero { padding-block: clamp(36px, 7vw, 96px) clamp(48px, 8vw, 112px); }
+.hero-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 44px; align-items: center; }
+@media (min-width: 900px) { .hero-grid { grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); gap: 64px; } }
+.hero h1 { font-size: clamp(2.9rem, 8.2vw, 6rem); line-height: 1.01; margin-top: 20px; }
+.lede { max-width: 32em; margin-top: 26px; font-size: 1.08rem; font-weight: 300; color: color-mix(in srgb, var(--fg) 82%, var(--bg)); }
+.cta-row { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 28px; margin-top: 34px; }
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 52px; padding: 0 30px;
+  background: var(--fg); color: var(--bg); border: 1px solid var(--fg); text-decoration: none;
+  font-size: .78rem; font-weight: 500; letter-spacing: .16em; text-transform: uppercase;
+  transition: background-color .2s ease, color .2s ease, transform .15s ease, opacity .2s ease;
+}
+.btn:hover:not(:disabled) { background: transparent; color: var(--fg); }
+.btn:active:not(:disabled) { transform: scale(.98); }
+.btn:disabled { opacity: .55; cursor: default; }
+.btn svg { width: 15px; height: 15px; stroke: currentColor; fill: none; stroke-width: 1.6; }
+.text-link { font-size: .78rem; font-weight: 500; letter-spacing: .16em; text-transform: uppercase; text-decoration: none; border-bottom: 1px solid var(--accent); padding-bottom: 4px; }
+
+.arch {
+  display: block; position: relative; overflow: hidden; aspect-ratio: 2 / 3; background: #EADFD3;
+  border-radius: 50% 50% 4px 4px / 33.333% 33.333% 4px 4px;
+}
+.arch img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.hero-art { position: relative; padding-bottom: 8%; }
+.hero-art .big { width: 76%; margin-left: auto; padding: 0; border: 0; }
+.hero-art .small { position: absolute; left: 0; bottom: 0; width: 42%; border: 7px solid var(--bg); padding: 0; background: var(--bg); border-radius: 50% 50% 4px 4px / 33.333% 33.333% 4px 4px; }
+.hero-art .small .arch { border-radius: inherit; }
+.hero-art button { display: block; background: none; transition: transform .35s var(--ease); }
+.hero-art button:hover { transform: translateY(-4px); }
+
+@keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+.hero-copy > * { animation: rise .7s var(--ease) backwards; }
+.hero-copy > :nth-child(2) { animation-delay: .06s; }
+.hero-copy > :nth-child(3) { animation-delay: .14s; }
+.hero-copy > :nth-child(4) { animation-delay: .22s; }
+.hero-art { animation: rise .9s var(--ease) .1s backwards; }
+
+/* ---------- Closet ---------- */
+.closet {
+  background: var(--tone); color: var(--on-tone);
+  transition: background-color .45s var(--ease), color .45s var(--ease);
+  padding-block: clamp(44px, 7vw, 96px) clamp(48px, 7vw, 100px);
+}
+.closet-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+.closet-head .eyebrow { color: inherit; opacity: .72; }
+.closet-head h2 { font-size: clamp(2rem, 5vw, 3.4rem); line-height: 1.05; margin-top: 12px; }
+.arrows { display: flex; gap: 10px; }
+.arrow {
+  width: 48px; height: 48px; border-radius: 50%; background: none; border: 1px solid currentColor;
+  display: grid; place-items: center; transition: background-color .2s ease, color .2s ease, opacity .2s ease, transform .15s ease;
+}
+.arrow:hover:not(:disabled) { background: var(--on-tone); color: var(--tone); }
+.arrow:active:not(:disabled) { transform: scale(.94); }
+.arrow:disabled { opacity: .3; cursor: default; }
+.arrow svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 1.5; }
+
+.rail {
+  margin-top: clamp(24px, 4vw, 44px); overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory;
+  scrollbar-width: none; -webkit-overflow-scrolling: touch; overscroll-behavior-x: contain;
+}
+.rail::-webkit-scrollbar { display: none; }
+.rail-inner {
+  list-style: none; margin: 0; position: relative; display: flex; gap: clamp(18px, 3vw, 36px);
+  width: max-content; min-width: 100%; padding-top: 10px; padding-bottom: 24px;
+  padding-inline: calc(50% - var(--cw) / 2);
+}
+.piece { flex: none; width: var(--cw); scroll-snap-align: center; transform-origin: 50% 0; opacity: .5; transform: scale(.9); transition: transform .32s var(--ease), opacity .32s var(--ease); }
+.piece.is-active { opacity: 1; transform: none; }
+.piece-btn { display: block; width: 100%; padding: 0; background: none; border: 0; text-align: center; }
+.piece .arch { box-shadow: 0 22px 40px -16px rgba(0, 0, 0, .5); }
+.piece-name { display: block; margin-top: 14px; font-size: .72rem; letter-spacing: .2em; text-transform: uppercase; opacity: .86; }
+.load-err { padding: 40px 0; text-align: center; opacity: .8; }
+
+.buy { display: grid; grid-template-columns: minmax(0, 1fr); gap: 40px; margin-top: clamp(20px, 4vw, 48px); align-items: start; }
+@media (min-width: 880px) { .buy { grid-template-columns: minmax(0, .95fr) minmax(0, 1.05fr); gap: clamp(40px, 7vw, 96px); } }
+.details { display: grid; grid-template-columns: 1.25fr 1fr; gap: 14px; align-items: end; }
+.details figure { margin: 0; min-width: 0; }
+.details .ph { overflow: hidden; border-radius: 3px; background: rgba(0, 0, 0, .18); }
+.details .ph.a { aspect-ratio: 1 / 1.08; }
+.details .ph.b { aspect-ratio: 5 / 7; }
+.details img { width: 100%; height: 100%; object-fit: cover; display: block; transition: opacity .18s ease; }
+.details img.fade { opacity: 0; }
+.details figcaption { margin-top: 10px; font-size: .68rem; letter-spacing: .18em; text-transform: uppercase; opacity: .72; }
+
+.info { min-width: 0; max-width: 520px; }
+.count { font-size: .72rem; letter-spacing: .2em; text-transform: uppercase; opacity: .72; font-variant-numeric: tabular-nums; }
+.info h3 { font-size: clamp(2rem, 4.6vw, 3rem); line-height: 1.05; margin-top: 12px; }
+.fit { margin-top: 8px; opacity: .8; font-weight: 300; }
+.swatches { display: flex; align-items: center; gap: 12px; margin-top: 24px; }
+.swatches .lbl { font-size: .7rem; letter-spacing: .18em; text-transform: uppercase; opacity: .72; margin-right: 4px; min-width: 48px; }
+.sw {
+  width: 26px; height: 26px; border-radius: 50%; padding: 0; border: 1px solid rgba(255, 255, 255, .45);
+  box-shadow: 0 0 0 0 var(--on-tone); transition: box-shadow .2s ease, transform .15s ease;
+}
+.sw:hover { transform: scale(1.08); }
+.sw[aria-pressed="true"] { box-shadow: 0 0 0 2px var(--tone), 0 0 0 3.5px var(--on-tone); }
+.desc { margin-top: 24px; font-weight: 300; font-size: 1.04rem; max-width: 34em; }
+.size-row { margin-top: 28px; }
+.size-row .lbl { font-size: .7rem; letter-spacing: .18em; text-transform: uppercase; opacity: .72; display: flex; justify-content: space-between; }
+.sizes { display: flex; gap: 10px; margin-top: 10px; }
+.size {
+  flex: 1; max-width: 92px; min-height: 48px; background: none; border: 1px solid color-mix(in srgb, var(--on-tone) 45%, transparent);
+  letter-spacing: .12em; font-weight: 500; transition: background-color .18s ease, color .18s ease, border-color .18s ease;
+}
+.size:hover:not(:disabled) { border-color: var(--on-tone); }
+.size[aria-checked="true"] { background: var(--on-tone); color: var(--tone); border-color: var(--on-tone); }
+.size:disabled { opacity: .35; text-decoration: line-through; cursor: default; }
+.sizes.need { animation: nudge .3s ease; }
+@keyframes nudge { 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
+.buy-row { display: flex; align-items: center; gap: 20px; margin-top: 26px; flex-wrap: wrap; }
+.price { font-family: var(--font-display); font-size: 1.9rem; line-height: 1; font-variant-numeric: tabular-nums; }
+.price small { font-family: var(--font-body); font-size: .68rem; letter-spacing: .16em; opacity: .7; margin-left: 6px; }
+.btn-tone {
+  flex: 1; min-width: 180px; min-height: 54px; background: var(--on-tone); color: var(--tone); border: 1px solid var(--on-tone);
+  font-size: .78rem; font-weight: 500; letter-spacing: .16em; text-transform: uppercase;
+  transition: background-color .2s ease, color .2s ease, transform .15s ease;
+}
+.btn-tone:hover { background: transparent; color: var(--on-tone); }
+.btn-tone:active { transform: scale(.98); }
+.status { min-height: 1.4em; margin-top: 10px; font-size: .86rem; opacity: .88; }
+.facts { list-style: none; margin: 26px 0 0; padding: 22px 0 0; border-top: 1px solid color-mix(in srgb, var(--on-tone) 28%, transparent); display: grid; gap: 8px; font-size: .88rem; font-weight: 300; }
+.facts li { display: flex; gap: 12px; }
+.facts b { font-weight: 500; letter-spacing: .12em; text-transform: uppercase; font-size: .68rem; min-width: 110px; padding-top: 3px; opacity: .8; }
+
+/* ---------- Craft ---------- */
+.craft { padding-block: clamp(60px, 9vw, 130px); }
+.craft-head { display: grid; gap: 22px; grid-template-columns: minmax(0, 1fr); max-width: 760px; }
+.craft-head h2 { font-size: clamp(2.2rem, 6vw, 4.2rem); line-height: 1.02; }
+.craft-head p { font-weight: 300; font-size: 1.06rem; color: color-mix(in srgb, var(--fg) 82%, var(--bg)); max-width: 34em; }
+.craft-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: clamp(36px, 6vw, 72px); align-items: start; }
+@media (min-width: 860px) { .craft-grid { grid-template-columns: 1.15fr .8fr 1fr; gap: 22px; } .craft-grid .c2 { margin-top: 90px; } .craft-grid .c3 { margin-top: 36px; } }
+.craft-grid figure { margin: 0; min-width: 0; }
+.craft-grid .ph { overflow: hidden; border-radius: 3px; background: var(--surface); }
+.craft-grid img { width: 100%; display: block; transition: transform .6s var(--ease); }
+.craft-grid figure:hover img { transform: scale(1.03); }
+.craft-grid figcaption { margin-top: 12px; font-size: .7rem; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); }
+
+/* ---------- Story ---------- */
+.story { background: var(--surface); padding-block: clamp(60px, 9vw, 130px); border-top: 1px solid var(--line); }
+.story-grid { display: grid; gap: 44px; grid-template-columns: minmax(0, 1fr); align-items: end; }
+@media (min-width: 900px) { .story-grid { grid-template-columns: minmax(0, 1.3fr) minmax(0, .7fr); gap: 80px; } }
+.story h2 { font-size: clamp(2rem, 5.2vw, 3.9rem); line-height: 1.06; }
+.story p { font-weight: 300; color: color-mix(in srgb, var(--fg) 82%, var(--bg)); }
+.sig { font-family: var(--font-urdu); font-size: 2.1rem; line-height: 1.9; color: var(--accent); margin-top: 18px; display: block; }
+.story-facts { display: flex; flex-wrap: wrap; gap: 10px 26px; margin-top: 26px; padding-top: 22px; border-top: 1px solid var(--line); font-size: .72rem; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); }
+
+/* ---------- Help ---------- */
+.help { padding-block: clamp(56px, 8vw, 110px); border-top: 1px solid var(--line); }
+.help-grid { display: grid; gap: 36px; grid-template-columns: minmax(0, 1fr); }
+@media (min-width: 900px) { .help-grid { grid-template-columns: minmax(0, .6fr) minmax(0, 1.4fr); gap: 80px; } }
+.help h2 { font-size: clamp(1.9rem, 4vw, 2.8rem); line-height: 1.08; }
+.faq details { border-bottom: 1px solid var(--line); }
+.faq details:first-child { border-top: 1px solid var(--line); }
+.faq summary { list-style: none; cursor: pointer; padding: 20px 0; display: flex; justify-content: space-between; gap: 20px; font-family: var(--font-display); font-size: 1.25rem; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; font-family: var(--font-body); font-weight: 300; font-size: 1.5rem; line-height: 1; transition: transform .25s var(--ease); }
+.faq details[open] summary::after { transform: rotate(45deg); }
+.faq details p { padding: 0 0 22px; max-width: 40em; font-weight: 300; color: color-mix(in srgb, var(--fg) 82%, var(--bg)); }
+
+/* ---------- Footer ---------- */
+.foot { padding-block: 48px 40px; border-top: 1px solid var(--line); }
+.foot .wrap { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 20px 40px; }
+.foot .mark { font-size: 1.5rem; }
+.foot nav { display: flex; gap: 24px; flex-wrap: wrap; }
+.foot nav a { font-size: .74rem; letter-spacing: .16em; text-transform: uppercase; text-decoration: none; color: var(--muted); }
+.foot nav a:hover { color: var(--fg); }
+.foot .fine { width: 100%; font-size: .78rem; color: var(--muted); }
+
+/* ---------- Layers: bag, checkout, confirmation ---------- */
+.scrim { position: fixed; inset: 0; background: rgba(8, 8, 10, .5); z-index: 50; opacity: 0; visibility: hidden; transition: opacity .25s ease, visibility .25s; }
+.scrim.open { opacity: 1; visibility: visible; }
+.drawer {
+  position: fixed; top: 0; right: 0; bottom: 0; z-index: 60; width: min(440px, 100%); background: var(--bg); color: var(--fg);
+  display: flex; flex-direction: column; transform: translateX(100%); visibility: hidden;
+  transition: transform .32s var(--ease), visibility .32s;
+  padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); padding-right: env(safe-area-inset-right, 0px);
+  box-shadow: -20px 0 50px rgba(0, 0, 0, .25);
+}
+.drawer.open { transform: none; visibility: visible; }
+.drawer-head { display: flex; align-items: center; justify-content: space-between; padding: 20px 24px; border-bottom: 1px solid var(--line); }
+.drawer-head h2 { font-size: 1.5rem; }
+.x { width: 40px; height: 40px; border-radius: 50%; border: 0; background: none; display: grid; place-items: center; }
+.x:hover { background: var(--line); }
+.x svg { width: 18px; height: 18px; stroke: currentColor; stroke-width: 1.5; fill: none; }
+.lines { list-style: none; margin: 0; padding: 0; }
+.drawer .lines { padding: 8px 24px; overflow-y: auto; flex: 1; }
+.line { display: grid; grid-template-columns: 76px minmax(0, 1fr) auto; gap: 16px; padding: 18px 0; border-bottom: 1px solid var(--line); }
+.line img { width: 76px; aspect-ratio: 2 / 3; object-fit: cover; border-radius: 3px; background: #EADFD3; }
+.line h3 { font-size: 1.15rem; line-height: 1.2; }
+.line .m { font-size: .84rem; color: var(--muted); margin-top: 2px; }
+.qty { display: inline-flex; align-items: center; border: 1px solid var(--line); margin-top: 12px; }
+.qty button { width: 34px; height: 34px; background: none; border: 0; font-size: 1.05rem; }
+.qty button:hover { background: var(--line); }
+.qty span { min-width: 28px; text-align: center; font-variant-numeric: tabular-nums; font-size: .9rem; }
+.line .r { text-align: right; font-variant-numeric: tabular-nums; display: flex; flex-direction: column; align-items: flex-end; justify-content: space-between; }
+.rm { background: none; border: 0; font-size: .74rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); padding: 4px 0; text-decoration: underline; text-underline-offset: 3px; }
+.empty { padding: 56px 24px; text-align: center; color: var(--muted); }
+.empty h3 { font-size: 1.5rem; color: var(--fg); margin-bottom: 8px; }
+.drawer-foot { padding: 20px 24px 24px; border-top: 1px solid var(--line); }
+.sub { display: flex; justify-content: space-between; font-size: 1.05rem; font-variant-numeric: tabular-nums; }
+.note { font-size: .82rem; color: var(--muted); margin: 6px 0 16px; }
+.drawer-foot .btn { width: 100%; }
+.cart-msg { margin-top: 12px; font-size: .86rem; color: var(--muted); min-height: 1.4em; }
+
+.co {
+  position: fixed; inset: 0; z-index: 70; background: var(--bg); color: var(--fg); overflow-y: auto;
+  opacity: 0; visibility: hidden; transform: translateY(14px); transition: opacity .28s ease, transform .32s var(--ease), visibility .32s;
+  padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+.co.open { opacity: 1; visibility: visible; transform: none; }
+.co-bar { border-bottom: 1px solid var(--line); position: sticky; top: 0; background: var(--bg); z-index: 2; }
+.co-bar .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 64px; }
+.co-bar .mark { font-size: 1.4rem; }
+.secure { font-size: .7rem; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); display: none; align-items: center; gap: 8px; }
+.secure svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 1.6; }
+@media (min-width: 640px) { .secure { display: inline-flex; } }
+.co-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 40px; padding-block: clamp(28px, 5vw, 64px) 72px; align-items: start; }
+@media (min-width: 920px) { .co-grid { grid-template-columns: minmax(0, 1.25fr) minmax(0, .75fr); gap: 72px; } .co-sum { position: sticky; top: 96px; } }
+.co-main h2 { font-size: clamp(1.9rem, 4.4vw, 2.8rem); line-height: 1.05; margin-bottom: 10px; }
+.co-main .lines { border-top: 1px solid var(--line); margin-top: 22px; }
+.ship { border: 0; padding: 0; margin: 36px 0 0; min-width: 0; }
+.ship legend { padding: 0; font-size: .72rem; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; }
+.ship-opts { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+.ship-opt {
+  text-align: left; background: none; border: 1px solid var(--line); padding: 16px 18px; display: grid; gap: 2px;
+  transition: border-color .2s ease, background-color .2s ease;
+}
+.ship-opt:hover { border-color: var(--fg); }
+.ship-opt[aria-checked="true"] { border-color: var(--fg); background: var(--surface); box-shadow: inset 0 0 0 1px var(--fg); }
+.ship-opt b { font-family: var(--font-display); font-weight: 400; font-size: 1.2rem; }
+.ship-opt span { font-size: .84rem; color: var(--muted); }
+.hint { margin-top: 12px; font-size: .86rem; color: var(--muted); }
+.co-sum { background: var(--surface); padding: clamp(22px, 3vw, 34px); border: 1px solid var(--line); }
+.co-sum h3 { font-size: 1.5rem; margin-bottom: 18px; }
+.co-sum dl > div { display: flex; justify-content: space-between; gap: 16px; padding: 8px 0; font-variant-numeric: tabular-nums; }
+.co-sum dt { color: var(--muted); }
+.co-sum .tot { border-top: 1px solid var(--line); margin-top: 8px; padding-top: 16px; font-size: 1.2rem; }
+.co-sum .tot dt { color: var(--fg); }
+.co-sum .tot dd { font-family: var(--font-display); font-size: 1.6rem; }
+.co-sum .btn { width: 100%; margin-top: 22px; min-height: 56px; }
+.err { margin-top: 14px; font-size: .9rem; color: #A63B2E; min-height: 1.4em; }
+:root[data-theme="dark"] .err { color: #F0897B; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .err { color: #F0897B; } }
+.fine-print { margin-top: 10px; font-size: .8rem; color: var(--muted); line-height: 1.5; }
+
+.done {
+  position: fixed; z-index: 80; left: 50%; top: 50%; width: min(460px, calc(100% - 32px)); background: var(--bg); color: var(--fg);
+  padding: 40px 32px 32px; text-align: center; border: 1px solid var(--line);
+  transform: translate(-50%, calc(-50% + 12px)); opacity: 0; visibility: hidden; transition: opacity .28s ease, transform .32s var(--ease), visibility .32s;
+}
+.done.open { opacity: 1; visibility: visible; transform: translate(-50%, -50%); }
+.done h2 { font-size: 2rem; margin-bottom: 12px; }
+.done p { color: var(--muted); margin-bottom: 26px; }
+.done .btn { width: 100%; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition-duration: .01ms !important; }
+}
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="mh" viewBox="0 0 80 70" overflow="visible">
+    <g fill="currentColor">
+      <rect x="12" y="3" width="9" height="64"/><rect x="6" y="0" width="21" height="3.2"/><rect x="6" y="66.8" width="21" height="3.2"/>
+      <rect x="59" y="3" width="9" height="64"/><rect x="53" y="0" width="21" height="3.2"/><rect x="53" y="66.8" width="21" height="3.2"/>
+    </g>
+    <g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round">
+      <path d="M21 35 H46"/><path d="M46 35 q3 -3 8 -3 q3 0 3 3 q0 3 -3 3 q-5 0 -8 -3z"/>
+    </g>
+    <path d="M52 36 C 46 44, 34 46, 36 56 S 46 64, 40 69" fill="none" stroke-width="1.5" stroke-linecap="round" style="stroke:var(--accent)"/>
+  </symbol>
+</svg>
+
+<div id="page">
+  <header class="bar">
+    <div class="wrap">
+      <a class="mark" href="#top" aria-label="HINA"><svg class="mark-h" aria-hidden="true"><use href="#mh"/></svg><span>INA</span></a>
+      <nav class="nav" aria-label="Main">
+        <a href="#closet">Closet</a>
+        <a class="hide-s" href="#craft">Craft</a>
+        <a class="hide-s" href="#story">Story</a>
+        <a class="hide-s" href="#help">Help</a>
+        <button class="bag-btn" id="bagBtn" type="button" aria-haspopup="dialog">Bag <span id="bagCount">(0)</span></button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow">Autumn 2026 preview &middot; Made in Pakistan</p>
+          <h1>Embroidery you can live in.</h1>
+          <p class="lede">Matching sweatshirts and pants embroidered with gold thread, pearls and flowers. Designed by Hina, made in Pakistan, and cut for the woman who is already running the day.</p>
+          <div class="cta-row">
+            <a class="btn" href="#closet">Browse the closet</a>
+            <a class="text-link" href="#craft">See the stitching</a>
+          </div>
+        </div>
+        <div class="hero-art">
+          <button class="big" type="button" data-pick="0" aria-label="View the Navy Paisley set"><span class="arch"><img src="img/navy.jpg" alt="Model in the navy set with gold paisley embroidery" width="1024" height="1536"></span></button>
+          <button class="small" type="button" data-pick="1" aria-label="View the Ivory Pearl Vine set"><span class="arch"><img src="img/ivory.jpg" alt="Model in the ivory set with pearl and vine embroidery" width="1024" height="1536" loading="lazy"></span></button>
+        </div>
+      </div>
+    </section>
+
+    <section class="closet" id="closet" aria-labelledby="closetTitle">
+      <div class="wrap">
+        <div class="closet-head">
+          <div>
+            <p class="eyebrow">The closet</p>
+            <h2 id="closetTitle">Five sets. Take your time.</h2>
+          </div>
+          <div class="arrows">
+            <button class="arrow" id="prev" type="button" aria-label="Previous set" disabled><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
+            <button class="arrow" id="next" type="button" aria-label="Next set"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button>
+          </div>
+        </div>
+      </div>
+
+      <div class="rail" id="rail" tabindex="0" aria-label="Browse the five sets. Use the arrow keys or swipe.">
+        <ul class="rail-inner" id="railInner"></ul>
+      </div>
+      <p class="load-err wrap" id="loadErr" hidden>The collection could not load. Please refresh the page.</p>
+
+      <div class="wrap">
+        <div class="buy">
+          <div class="details" aria-live="polite">
+            <figure><div class="ph a"><img id="d1" alt=""></div><figcaption id="c1"></figcaption></figure>
+            <figure><div class="ph b"><img id="d2" alt=""></div><figcaption id="c2"></figcaption></figure>
+          </div>
+
+          <div class="info">
+            <p class="count"><span id="cIdx">01</span> / 05</p>
+            <h3 id="pName"></h3>
+            <p class="fit" id="pFit"></p>
+            <div class="swatches" id="swatches" role="group" aria-label="Colour"><span class="lbl" id="colorLbl"></span></div>
+            <p class="desc" id="pDesc"></p>
+
+            <div class="size-row">
+              <div class="lbl"><span id="sizeLbl">Size</span></div>
+              <div class="sizes" id="sizes" role="radiogroup" aria-labelledby="sizeLbl">
+                <button class="size" type="button" role="radio" aria-checked="false" data-size="S">S</button>
+                <button class="size" type="button" role="radio" aria-checked="false" data-size="M">M</button>
+                <button class="size" type="button" role="radio" aria-checked="false" data-size="L">L</button>
+              </div>
+            </div>
+
+            <div class="buy-row">
+              <p class="price"><span id="pPrice"></span><small>CAD</small></p>
+              <button class="btn-tone" id="add" type="button">Add to bag</button>
+            </div>
+            <p class="status" id="status" role="status"></p>
+
+            <ul class="facts">
+              <li><b>Includes</b><span>Sweatshirt and pants, sold as a set</span></li>
+              <li><b>Sizes</b><span>S, M, L</span></li>
+              <li><b>Made in</b><span>Pakistan</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="craft" id="craft">
+      <div class="wrap">
+        <div class="craft-head">
+          <p class="eyebrow">The embroidery</p>
+          <h2>Look closely.</h2>
+          <p>Each design is Hina's own, worked in gold thread, seed pearls, sequins and soft florals, then finished in Pakistan. Every set carries it from the shoulder to the hem.</p>
+        </div>
+        <div class="craft-grid">
+          <figure class="c1"><div class="ph"><img src="img/navy-d1.jpg" alt="Gold paisley embroidery on a navy sweatshirt shoulder" loading="lazy"></div><figcaption>Gold thread on navy</figcaption></figure>
+          <figure class="c2"><div class="ph"><img src="img/mauve-d2.jpg" alt="Beaded paisley embroidery along a mauve trouser leg" loading="lazy"></div><figcaption>Beadwork on mauve</figcaption></figure>
+          <figure class="c3"><div class="ph"><img src="img/noir-d1.jpg" alt="Gold bloom and sequin embroidery on a black sweatshirt" loading="lazy"></div><figcaption>Bloom and sequin on noir</figcaption></figure>
+          <figure class="c4"><div class="ph"><img src="img/ivory-d1.jpg" alt="Champagne vine and pearl embroidery on an ivory sweatshirt" loading="lazy"></div><figcaption>Seed pearls on ivory</figcaption></figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="story" id="story">
+      <div class="wrap story-grid">
+        <h2>Made for the woman who is already running the day.</h2>
+        <div>
+          <p>HINA makes matching sets for busy mothers and working women. Soft enough for the whole day, finished well enough to be seen in, and quiet enough to wear again tomorrow.</p>
+          <span class="sig" lang="ur" dir="rtl">حنا</span>
+          <div class="story-facts"><span>Designed by Hina</span><span>Made in Pakistan</span><span>Sizes S, M, L</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="help" id="help">
+      <div class="wrap help-grid">
+        <h2>Questions, answered.</h2>
+        <div class="faq">
+          <details><summary>Shipping</summary><p id="faqShip">We ship to Canada and the United States. Your rate is shown before you pay.</p></details>
+          <details><summary>Returns</summary><p id="faqReturns">Unworn sets in their original condition can be returned after delivery.</p></details>
+          <details><summary>Sizing</summary><p>Sets come in S, M and L. The sweatshirt and pants are sold together in the same size.</p></details>
+          <details><summary>Caring for your set</summary><p>Wash cold, inside out, and lay flat to dry. Keep the iron away from the embroidery.</p></details>
+          <details><summary>Where is it made?</summary><p>Every set is embroidered and finished in Pakistan, to Hina's designs.</p></details>
+          <details><summary>How do I pay?</summary><p>Payment happens on a secure Stripe page. HINA never sees or stores your card details.</p></details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <div class="wrap">
+      <a class="mark" href="#top" aria-label="HINA, back to top"><svg class="mark-h" aria-hidden="true"><use href="#mh"/></svg><span>INA</span></a>
+      <nav aria-label="Footer"><a href="#closet">Closet</a><a href="#craft">Craft</a><a href="#story">Story</a><a href="#help">Help</a><a id="contactLink" href="#help" hidden>Contact</a></nav>
+      <p class="fine">&copy; 2026 HINA. Embroidered sets, made in Pakistan. Secure payments by Stripe.</p>
+    </div>
+  </footer>
+</div>
+
+<div class="scrim" id="scrim"></div>
+
+<aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="drawerTitle" inert>
+  <div class="drawer-head">
+    <h2 id="drawerTitle">Your bag</h2>
+    <button class="x" id="closeBag" type="button" aria-label="Close bag"><svg viewBox="0 0 24 24"><path d="M5 5l14 14M19 5L5 19"/></svg></button>
+  </div>
+  <ul class="lines" id="lines"></ul>
+  <div class="drawer-foot" id="drawerFoot">
+    <div class="sub"><span>Subtotal</span><span id="subtotal"></span></div>
+    <p class="note">Shipping is added on the next step.</p>
+    <button class="btn" id="toCheckout" type="button">Review and pay</button>
+    <p class="cart-msg" id="cartMsg" role="status"></p>
+  </div>
+</aside>
+
+<section class="co" id="co" role="dialog" aria-modal="true" aria-labelledby="coTitle" inert>
+  <div class="co-bar">
+    <div class="wrap">
+      <span class="mark" aria-label="HINA"><svg class="mark-h" aria-hidden="true"><use href="#mh"/></svg><span>INA</span></span>
+      <span class="secure"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="1"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>Secure checkout</span>
+      <button class="text-btn" id="coBack" type="button">Back to bag</button>
+    </div>
+  </div>
+  <div class="wrap co-grid">
+    <div class="co-main">
+      <h2 id="coTitle">Review your order</h2>
+      <p class="hint">Check your sizes, then choose where it is going.</p>
+      <ul class="lines" id="coLines"></ul>
+      <fieldset class="ship">
+        <legend>Delivering to</legend>
+        <div class="ship-opts" id="shipOpts" role="radiogroup" aria-label="Delivering to"></div>
+        <p class="hint">You will enter your full address on the next page.</p>
+      </fieldset>
+    </div>
+    <aside class="co-sum" aria-label="Order summary">
+      <h3>Order summary</h3>
+      <dl>
+        <div><dt>Subtotal</dt><dd id="sSub"></dd></div>
+        <div><dt>Shipping</dt><dd id="sShip"></dd></div>
+        <div class="tot"><dt>Total</dt><dd id="sTot"></dd></div>
+      </dl>
+      <button class="btn" id="pay" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="1"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg><span id="payLbl">Pay with Stripe</span></button>
+      <p class="err" id="payErr" role="alert"></p>
+      <p class="fine-print">You pay on Stripe's secure page. The final total, including any taxes, is confirmed there.</p>
+    </aside>
+  </div>
+</section>
+
+<div class="done" id="done" role="dialog" aria-modal="true" aria-labelledby="doneTitle" inert>
+  <h2 id="doneTitle">Thank you.</h2>
+  <p>Your order is placed. Stripe is emailing your receipt now.</p>
+  <button class="btn" id="doneBtn" type="button">Keep browsing</button>
+</div>
+
+<script>
+(function () {
+  var CHECKOUT_API = "/api/checkout";
+
+  var CAT = null, PIECES = [];
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  var moneyWhole = new Intl.NumberFormat("en-CA", { style: "currency", currency: "CAD", minimumFractionDigits: 0, maximumFractionDigits: 0 });
+  var moneyCents = new Intl.NumberFormat("en-CA", { style: "currency", currency: "CAD", minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  function fmt(cents) { return (cents % 100 === 0 ? moneyWhole : moneyCents).format(cents / 100); }
+
+  var closet = $("#closet"), rail = $("#rail"), inner = $("#railInner");
+  var page = $("#page"), drawer = $("#drawer"), co = $("#co"), done = $("#done"), scrim = $("#scrim");
+  var cur = 0, size = null, bag = [], country = "CA", items = [], sws = [], layer = "none", lastFocus = null;
+  var sizeBtns = $$(".size");
+
+  /* ---------- Layers ---------- */
+  function toggle(el, on) { el.classList.toggle("open", on); if (on) el.removeAttribute("inert"); else el.setAttribute("inert", ""); }
+  function setLayer(n, focusSel) {
+    if (layer === "none" && n !== "none") lastFocus = document.activeElement;
+    layer = n;
+    toggle(drawer, n === "bag"); toggle(co, n === "co"); toggle(done, n === "done");
+    scrim.classList.toggle("open", n === "bag" || n === "done");
+    if (n === "none") page.removeAttribute("inert"); else page.setAttribute("inert", "");
+    if (n === "none") { if (lastFocus && lastFocus.focus) lastFocus.focus(); }
+    else if (focusSel) setTimeout(function () { var f = $(focusSel); if (f) f.focus(); }, 40);
+  }
+  document.addEventListener("keydown", function (e) {
+    if (e.key !== "Escape") return;
+    if (layer === "co") setLayer("bag", "#closeBag");
+    else if (layer === "bag" || layer === "done") setLayer("none");
+  });
+
+  /* ---------- Storage ---------- */
+  function load() {
+    try { var s = localStorage.getItem("hina-bag-2026"); if (s) bag = JSON.parse(s) || []; } catch (e) { bag = []; }
+    try { var c = localStorage.getItem("hina-country-2026"); if (c && CAT.shipping[c]) country = c; } catch (e) {}
+    bag = bag.filter(function (l) { return piece(l.id) && l.qty > 0 && ["S", "M", "L"].indexOf(l.size) > -1; });
+  }
+  function save() {
+    try { localStorage.setItem("hina-bag-2026", JSON.stringify(bag)); localStorage.setItem("hina-country-2026", country); } catch (e) {}
+  }
+  function piece(id) { return PIECES.filter(function (p) { return p.id === id; })[0]; }
+
+  /* ---------- Closet ---------- */
+  function buildRail() {
+    PIECES.forEach(function (p, i) {
+      var li = document.createElement("li");
+      li.className = "piece";
+      li.innerHTML = '<button class="piece-btn" type="button" aria-label="' + p.name + ', ' + p.color + '">' +
+        '<span class="arch"><img src="img/' + p.id + '.jpg" alt="Model wearing the ' + p.name + ' set" width="1024" height="1536"' + (i > 1 ? ' loading="lazy"' : '') + '></span>' +
+        '<span class="piece-name">' + p.name + '</span></button>';
+      li.firstChild.addEventListener("click", function () { go(i); });
+      inner.appendChild(li);
+    });
+    items = $$(".piece", inner);
+    var swWrap = $("#swatches");
+    PIECES.forEach(function (p, i) {
+      var b = document.createElement("button");
+      b.type = "button"; b.className = "sw"; b.style.background = p.swatch;
+      b.setAttribute("aria-label", p.color); b.setAttribute("aria-pressed", "false");
+      b.addEventListener("click", function () { go(i); });
+      swWrap.appendChild(b);
+    });
+    sws = $$(".sw", swWrap);
+  }
+
+  function swapImg(img, src, alt) {
+    img.classList.add("fade");
+    setTimeout(function () {
+      img.onload = function () { img.classList.remove("fade"); };
+      img.src = src; img.alt = alt;
+      if (img.complete) img.classList.remove("fade");
+    }, 150);
+  }
+
+  function updateSizes() {
+    var p = PIECES[cur], out = p.soldOut || [];
+    sizeBtns.forEach(function (b) {
+      var gone = out.indexOf(b.getAttribute("data-size")) > -1;
+      b.disabled = gone; b.title = gone ? "Sold out" : "";
+    });
+    if (size && out.indexOf(size) > -1) {
+      size = null; sizeBtns.forEach(function (x) { x.setAttribute("aria-checked", "false"); });
+    }
+  }
+
+  function select(i) {
+    cur = i;
+    var p = PIECES[i];
+    closet.style.setProperty("--tone", p.tone);
+    closet.style.setProperty("--on-tone", p.on);
+    items.forEach(function (li, k) {
+      li.classList.toggle("is-active", k === i);
+      li.firstChild.setAttribute("aria-current", k === i ? "true" : "false");
+    });
+    sws.forEach(function (b, k) { b.setAttribute("aria-pressed", k === i ? "true" : "false"); });
+    $("#cIdx").textContent = "0" + (i + 1);
+    $("#pName").textContent = p.name;
+    $("#pFit").textContent = p.fit;
+    $("#colorLbl").textContent = p.color;
+    $("#pDesc").textContent = p.desc;
+    $("#pPrice").textContent = fmt(p.price);
+    $("#c1").textContent = p.details[0]; $("#c2").textContent = p.details[1];
+    swapImg($("#d1"), "img/" + p.id + "-d1.jpg", p.name + ", " + p.details[0].toLowerCase());
+    swapImg($("#d2"), "img/" + p.id + "-d2.jpg", p.name + ", " + p.details[1].toLowerCase());
+    $("#prev").disabled = i === 0;
+    $("#next").disabled = i === PIECES.length - 1;
+    $("#status").textContent = "";
+    updateSizes();
+  }
+
+  function scrollToIndex(i, behavior) {
+    var li = items[i]; if (!li) return;
+    rail.scrollTo({ left: li.offsetLeft + li.offsetWidth / 2 - rail.clientWidth / 2, behavior: behavior || "smooth" });
+  }
+  function go(i, behavior) {
+    i = Math.max(0, Math.min(PIECES.length - 1, i));
+    if (i !== cur) select(i);
+    scrollToIndex(i, behavior);
+  }
+
+  function bindCloset() {
+    var ticking = false;
+    rail.addEventListener("scroll", function () {
+      if (ticking) return; ticking = true;
+      requestAnimationFrame(function () {
+        ticking = false;
+        var mid = rail.scrollLeft + rail.clientWidth / 2, best = 0, bd = 1e9;
+        items.forEach(function (li, k) {
+          var d = Math.abs(li.offsetLeft + li.offsetWidth / 2 - mid);
+          if (d < bd) { bd = d; best = k; }
+        });
+        if (best !== cur) select(best);
+      });
+    }, { passive: true });
+    $("#prev").addEventListener("click", function () { go(cur - 1); });
+    $("#next").addEventListener("click", function () { go(cur + 1); });
+    rail.addEventListener("keydown", function (e) {
+      if (e.key === "ArrowRight") { e.preventDefault(); go(cur + 1); }
+      if (e.key === "ArrowLeft") { e.preventDefault(); go(cur - 1); }
+    });
+    window.addEventListener("resize", function () { scrollToIndex(cur, "auto"); });
+    $$("[data-pick]").forEach(function (b) {
+      b.addEventListener("click", function () {
+        var i = +b.getAttribute("data-pick");
+        select(i);
+        closet.scrollIntoView({ behavior: "smooth", block: "start" });
+        setTimeout(function () { scrollToIndex(i, "auto"); }, 0);
+      });
+    });
+    sizeBtns.forEach(function (b) {
+      b.addEventListener("click", function () {
+        size = b.getAttribute("data-size");
+        sizeBtns.forEach(function (x) { x.setAttribute("aria-checked", x === b ? "true" : "false"); });
+        $("#status").textContent = "";
+      });
+    });
+    $("#add").addEventListener("click", function () {
+      if (!size) {
+        $("#status").textContent = "Choose a size first.";
+        var s = $("#sizes"); s.classList.remove("need"); void s.offsetWidth; s.classList.add("need");
+        return;
+      }
+      var p = PIECES[cur];
+      var found = bag.filter(function (l) { return l.id === p.id && l.size === size; })[0];
+      if (found) found.qty = Math.min(9, found.qty + 1); else bag.push({ id: p.id, size: size, qty: 1 });
+      save(); renderAll(); setLayer("bag", "#toCheckout");
+    });
+  }
+
+  /* ---------- Bag and checkout review ---------- */
+  function buildLines(ul) {
+    ul.innerHTML = "";
+    bag.forEach(function (l, idx) {
+      var p = piece(l.id);
+      var li = document.createElement("li");
+      li.className = "line";
+      li.innerHTML = '<img src="img/' + p.id + '.jpg" alt="">' +
+        '<div><h3>' + p.name + '</h3><p class="m">' + p.color + ' &middot; Size ' + l.size + '</p>' +
+        '<div class="qty"><button type="button" aria-label="Fewer">&minus;</button><span aria-live="polite">' + l.qty + '</span><button type="button" aria-label="More">+</button></div></div>' +
+        '<div class="r"><span>' + fmt(p.price * l.qty) + '</span><button class="rm" type="button">Remove</button></div>';
+      var bs = $$(".qty button", li);
+      bs[0].addEventListener("click", function () { l.qty -= 1; if (l.qty < 1) bag.splice(idx, 1); save(); renderAll(); });
+      bs[1].addEventListener("click", function () { l.qty = Math.min(9, l.qty + 1); save(); renderAll(); });
+      $(".rm", li).addEventListener("click", function () { bag.splice(idx, 1); save(); renderAll(); });
+      ul.appendChild(li);
+    });
+  }
+
+  function totals() {
+    var sub = bag.reduce(function (n, l) { return n + piece(l.id).price * l.qty; }, 0);
+    var ship = CAT.shipping[country].amount;
+    return { sub: sub, ship: ship, tot: sub + ship };
+  }
+
+  function renderAll() {
+    var count = bag.reduce(function (n, l) { return n + l.qty; }, 0);
+    $("#bagCount").textContent = "(" + count + ")";
+    var list = $("#lines"), foot = $("#drawerFoot");
+    $("#cartMsg").textContent = ""; $("#payErr").textContent = "";
+    if (!bag.length) {
+      list.innerHTML = '<li class="empty"><h3>Your bag is empty</h3><p>Pick a set from the closet and choose your size.</p></li>';
+      foot.hidden = true;
+      if (layer === "co") setLayer("bag", "#closeBag");
+      return;
+    }
+    foot.hidden = false;
+    buildLines(list); buildLines($("#coLines"));
+    var t = totals();
+    $("#subtotal").textContent = fmt(t.sub);
+    $("#sSub").textContent = fmt(t.sub);
+    $("#sShip").textContent = fmt(t.ship);
+    $("#sTot").textContent = fmt(t.tot);
+    $$(".ship-opt").forEach(function (b) { b.setAttribute("aria-checked", b.getAttribute("data-c") === country ? "true" : "false"); });
+  }
+
+  function buildShip() {
+    var wrap = $("#shipOpts");
+    Object.keys(CAT.shipping).forEach(function (c) {
+      var b = document.createElement("button");
+      b.type = "button"; b.className = "ship-opt"; b.setAttribute("role", "radio"); b.setAttribute("data-c", c);
+      b.innerHTML = '<b>' + (CAT.countries[c] || c) + '</b><span>' + fmt(CAT.shipping[c].amount) + ' &middot; ' + CAT.shipping[c].label.split(",")[0] + '</span>';
+      b.addEventListener("click", function () { country = c; save(); renderAll(); });
+      wrap.appendChild(b);
+    });
+  }
+
+  $("#bagBtn").addEventListener("click", function () { setLayer("bag", "#closeBag"); });
+  $("#closeBag").addEventListener("click", function () { setLayer("none"); });
+  scrim.addEventListener("click", function () { if (layer === "bag") setLayer("none"); });
+  $("#toCheckout").addEventListener("click", function () { if (bag.length) setLayer("co", "#coBack"); });
+  $("#coBack").addEventListener("click", function () { setLayer("bag", "#toCheckout"); });
+  $("#doneBtn").addEventListener("click", function () { setLayer("none"); });
+
+  /* ---------- Stripe handoff ---------- */
+  var pay = $("#pay"), payLbl = $("#payLbl");
+  pay.addEventListener("click", function () {
+    if (!bag.length) return;
+    var err = $("#payErr"); err.textContent = "";
+    pay.disabled = true; payLbl.textContent = "Opening Stripe";
+    function fail(msg) { err.textContent = msg; pay.disabled = false; payLbl.textContent = "Pay with Stripe"; }
+    var unavailable = "Checkout is not connected yet. It switches on once the site is deployed with your Stripe key.";
+    fetch(CHECKOUT_API, {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ items: bag.map(function (l) { return { id: l.id, size: l.size, qty: l.qty }; }), country: country })
+    }).then(function (r) {
+      return r.json().then(function (j) { return { ok: r.ok, j: j }; }, function () { return { ok: false, j: {} }; });
+    }).then(function (res) {
+      if (res.ok && res.j && res.j.url) { window.location.assign(res.j.url); return; }
+      fail(res.j && res.j.error ? res.j.error : unavailable);
+    }).catch(function () { fail(unavailable); });
+  });
+  window.addEventListener("pageshow", function (e) { if (e.persisted) { pay.disabled = false; payLbl.textContent = "Pay with Stripe"; } });
+
+  /* ---------- Return from Stripe ---------- */
+  function handleReturn() {
+    var q = ""; try { q = new URLSearchParams(window.location.search).get("order") || ""; } catch (e) {}
+    if (!q) return;
+    try { history.replaceState(null, "", window.location.pathname + window.location.hash); } catch (e) {}
+    if (q === "success") { bag = []; save(); renderAll(); setLayer("done", "#doneBtn"); }
+    else if (q === "cancelled") { renderAll(); setLayer("bag", "#toCheckout"); $("#cartMsg").textContent = "Checkout was cancelled. Your bag is saved."; }
+  }
+
+  /* ---------- Help copy from the catalogue ---------- */
+  function fillHelp() {
+    var countries = Object.keys(CAT.shipping).map(function (c) { return CAT.countries[c] || c; });
+    var list = countries.length > 1 ? countries.slice(0, -1).join(", ") + " and " + countries[countries.length - 1] : countries[0];
+    $("#faqShip").textContent = "We ship to " + list + ". Your rate is shown before you pay.";
+    var r = "Unworn sets in their original condition can be returned within " + CAT.returnsDays + " days of delivery.";
+    if (CAT.contactEmail) r += " Write to " + CAT.contactEmail + " and we will arrange it.";
+    $("#faqReturns").textContent = r;
+    if (CAT.contactEmail) { var a = $("#contactLink"); a.hidden = false; a.href = "mailto:" + CAT.contactEmail; a.textContent = CAT.contactEmail; }
+  }
+
+  /* ---------- Start ---------- */
+  fetch("catalog.json").then(function (r) { if (!r.ok) throw new Error("catalog"); return r.json(); }).then(function (c) {
+    CAT = c; PIECES = c.pieces;
+    if (!CAT.shipping[country]) country = Object.keys(CAT.shipping)[0];
+    load(); buildRail(); buildShip(); bindCloset(); fillHelp();
+    renderAll(); select(0);
+    requestAnimationFrame(function () { scrollToIndex(0, "auto"); });
+    window.addEventListener("load", function () { scrollToIndex(cur, "auto"); });
+    handleReturn();
+  }).catch(function () {
+    $("#loadErr").hidden = false;
+  });
+})();
+</script>

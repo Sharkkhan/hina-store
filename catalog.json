@@ -1,0 +1,57 @@
+{
+  "currency": "cad",
+  "countries": { "CA": "Canada", "US": "United States" },
+  "shipping": {
+    "CA": { "label": "Standard shipping, Canada", "amount": 1500 },
+    "US": { "label": "Standard shipping, United States", "amount": 2500 }
+  },
+  "returnsDays": 14,
+  "contactEmail": "",
+  "pieces": [
+    {
+      "id": "navy", "name": "Navy Paisley", "color": "Navy",
+      "swatch": "#232B45", "tone": "#1F2742", "on": "#F0EADF",
+      "price": 29500,
+      "fit": "Crew sweatshirt with jogger pants",
+      "desc": "Gold paisley scrolls climb from the shoulder, small medallions run down the sleeve, and one long motif follows the leg.",
+      "details": ["Shoulder motif", "Leg motif"],
+      "soldOut": []
+    },
+    {
+      "id": "ivory", "name": "Ivory Pearl Vine", "color": "Ivory",
+      "swatch": "#EDE3D3", "tone": "#2F2C28", "on": "#F3ECE0",
+      "price": 32500,
+      "fit": "Crew sweatshirt with wide-leg pants",
+      "desc": "Champagne vines and seed pearls run down both sleeves and the full length of the leg, tone on tone.",
+      "details": ["Shoulder vine", "Leg vine"],
+      "soldOut": []
+    },
+    {
+      "id": "noir", "name": "Noir Bloom", "color": "Noir",
+      "swatch": "#1C1B1B", "tone": "#181717", "on": "#EFE7DA",
+      "price": 32500,
+      "fit": "Crew sweatshirt with wide-leg pants",
+      "desc": "Gold flowers and sequin dew on black. One bloom at the shoulder, one at each cuff, and a trailing vine down the leg.",
+      "details": ["Shoulder bloom", "Leg vine"],
+      "soldOut": []
+    },
+    {
+      "id": "mauve", "name": "Mauve Heirloom", "color": "Mauve",
+      "swatch": "#A07F7C", "tone": "#7A5C5B", "on": "#F7EFE9",
+      "price": 34500,
+      "fit": "Boat-neck sweatshirt with wide-leg pants",
+      "desc": "A beaded neckline, embroidered cuffs and a bordered hem. The most embroidered set in the collection.",
+      "details": ["Neckline beadwork", "Hem and leg"],
+      "soldOut": []
+    },
+    {
+      "id": "blush", "name": "Blush Garden", "color": "Blush",
+      "swatch": "#CDB3A6", "tone": "#CBB0A3", "on": "#2A211D",
+      "price": 30500,
+      "fit": "Crew sweatshirt with jogger pants",
+      "desc": "Soft pink flowers, sage leaves and tiny seed beads, centred on the chest and trailing down the sleeves and leg.",
+      "details": ["Chest and sleeve", "Leg florals"],
+      "soldOut": []
+    }
+  ]
+}
