@@ -10,7 +10,7 @@
   "pieces": [
     {
       "id": "navy", "name": "Navy Paisley", "color": "Navy",
-      "swatch": "#232B45", "tone": "#1F2742", "on": "#F0EADF",
+      "swatch": "#232B45", "stage": "#DDCDAE", "ink": "#1E1A14", "halo": "#EADDC4", "leaf": "#A67C2E",
       "price": 29500,
       "fit": "Crew sweatshirt with jogger pants",
       "desc": "Gold paisley scrolls climb from the shoulder, small medallions run down the sleeve, and one long motif follows the leg.",
@@ -19,7 +19,7 @@
     },
     {
       "id": "ivory", "name": "Ivory Pearl Vine", "color": "Ivory",
-      "swatch": "#EDE3D3", "tone": "#2F2C28", "on": "#F3ECE0",
+      "swatch": "#EDE3D3", "stage": "#34222E", "ink": "#F3EBE0", "halo": "#46303D", "leaf": "#D9B96E",
       "price": 32500,
       "fit": "Crew sweatshirt with wide-leg pants",
       "desc": "Champagne vines and seed pearls run down both sleeves and the full length of the leg, tone on tone.",
@@ -28,7 +28,7 @@
     },
     {
       "id": "noir", "name": "Noir Bloom", "color": "Noir",
-      "swatch": "#1C1B1B", "tone": "#181717", "on": "#EFE7DA",
+      "swatch": "#1C1B1B", "stage": "#C9CFBF", "ink": "#1D2119", "halo": "#D9DECE", "leaf": "#9A7430",
       "price": 32500,
       "fit": "Crew sweatshirt with wide-leg pants",
       "desc": "Gold flowers and sequin dew on black. One bloom at the shoulder, one at each cuff, and a trailing vine down the leg.",
@@ -37,7 +37,7 @@
     },
     {
       "id": "mauve", "name": "Mauve Heirloom", "color": "Mauve",
-      "swatch": "#A07F7C", "tone": "#7A5C5B", "on": "#F7EFE9",
+      "swatch": "#A07F7C", "stage": "#1F3B3A", "ink": "#F1EADF", "halo": "#2B4A48", "leaf": "#D6B66E",
       "price": 34500,
       "fit": "Boat-neck sweatshirt with wide-leg pants",
       "desc": "A beaded neckline, embroidered cuffs and a bordered hem. The most embroidered set in the collection.",
@@ -46,7 +46,7 @@
     },
     {
       "id": "blush", "name": "Blush Garden", "color": "Blush",
-      "swatch": "#CDB3A6", "tone": "#CBB0A3", "on": "#2A211D",
+      "swatch": "#CDB3A6", "stage": "#3A2326", "ink": "#F4E9E2", "halo": "#4B3033", "leaf": "#D9B46C",
       "price": 30500,
       "fit": "Crew sweatshirt with jogger pants",
       "desc": "Soft pink flowers, sage leaves and tiny seed beads, centred on the chest and trailing down the sleeves and leg.",

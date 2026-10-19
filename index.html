@@ -1,8 +1,31 @@
-<title>HINA</title>
-<meta name="claude:viewport-fit-sides" content="cover">
+<!doctype html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>HINA | Embroidered matching sets</title>
+<meta name="description" content="HINA makes matching embroidered sweatshirt and pants sets for busy mothers and working women. Gold thread, pearls and flowers, designed by Hina. Ships to Canada and the United States.">
+<link rel="canonical" href="https://www.shophinas.com/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="HINA">
+<meta property="og:title" content="HINA | Embroidered matching sets">
+<meta property="og:description" content="HINA makes matching embroidered sweatshirt and pants sets for busy mothers and working women. Gold thread, pearls and flowers, designed by Hina. Ships to Canada and the United States.">
+<meta property="og:url" content="https://www.shophinas.com/">
+<meta property="og:image" content="https://www.shophinas.com/img/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#ECE8E1">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%231A1A1F'/%3E%3Ctext x='32' y='46' font-family='Georgia,serif' font-size='42' text-anchor='middle' fill='%23E4CE9A'%3EH%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gilda+Display&family=Jost:wght@300;400;500&family=Noto+Nastaliq+Urdu:wght@400&display=swap">
 <style>
-/* Layout concept: a walk-in closet. Arched doors in a row; the whole stage takes on the colour of the set you are holding. */
+:root { color-scheme: light; padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
+html, body { margin: 0; }
+img { max-width: 100%; }
+[hidden] { display: none !important; }
+</style>
+<style>
+/* Layout concept: a fitting room. One model at a time steps into an arch of contrasting colour, with a row of arches below to choose from. Gold leaves drift down and a vine is stitched slowly at the edges. */
 :root {
   --bg: #ECE8E1;
   --surface: #F5F2EC;
@@ -10,13 +33,14 @@
   --muted: #66625A;
   --line: rgba(26, 26, 31, .14);
   --accent: #8C6A2F;
-  --tone: #1F2742;
-  --on-tone: #F0EADF;
+  --stage: #DDCDAE;
+  --ink: #1E1A14;
+  --halo: #EADDC4;
+  --leaf: #A67C2E;
   --font-display: "Gilda Display", "Didot", "Bodoni 72", Georgia, serif;
   --font-body: "Jost", "Helvetica Neue", Arial, sans-serif;
   --font-urdu: "Noto Nastaliq Urdu", "Noto Naskh Arabic", serif;
   --ease: cubic-bezier(.22, 1, .36, 1);
-  --cw: clamp(236px, 68vw, 318px);
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
@@ -45,7 +69,7 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 400; text-wrap: bala
 button { font: inherit; color: inherit; cursor: pointer; }
 a { color: inherit; }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
-.closet :focus-visible { outline-color: currentColor; }
+.closet :focus-visible { outline-color: var(--ink); }
 
 .wrap {
   width: 100%; max-width: 1240px; margin-inline: auto;
@@ -97,15 +121,14 @@ a { color: inherit; }
 .text-link { font-size: .78rem; font-weight: 500; letter-spacing: .16em; text-transform: uppercase; text-decoration: none; border-bottom: 1px solid var(--accent); padding-bottom: 4px; }
 
 .arch {
-  display: block; position: relative; overflow: hidden; aspect-ratio: 2 / 3; background: #EADFD3;
+  display: block; position: relative; overflow: hidden; aspect-ratio: 2 / 3; background: var(--c, #DDCDAE);
   border-radius: 50% 50% 4px 4px / 33.333% 33.333% 4px 4px;
 }
-.arch img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.arch img { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); height: 93%; width: auto; max-width: none; display: block; }
 .hero-art { position: relative; padding-bottom: 8%; }
-.hero-art .big { width: 76%; margin-left: auto; padding: 0; border: 0; }
-.hero-art .small { position: absolute; left: 0; bottom: 0; width: 42%; border: 7px solid var(--bg); padding: 0; background: var(--bg); border-radius: 50% 50% 4px 4px / 33.333% 33.333% 4px 4px; }
+.hero-art .big { width: 76%; margin-left: auto; padding: 0; border: 0; display: block; background: none; transition: transform .35s var(--ease); }
+.hero-art .small { position: absolute; left: 0; bottom: 0; width: 42%; border: 7px solid var(--bg); padding: 0; background: var(--bg); border-radius: 50% 50% 4px 4px / 33.333% 33.333% 4px 4px; transition: transform .35s var(--ease); }
 .hero-art .small .arch { border-radius: inherit; }
-.hero-art button { display: block; background: none; transition: transform .35s var(--ease); }
 .hero-art button:hover { transform: translateY(-4px); }
 
 @keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
@@ -117,10 +140,22 @@ a { color: inherit; }
 
 /* ---------- Closet ---------- */
 .closet {
-  background: var(--tone); color: var(--on-tone);
-  transition: background-color .45s var(--ease), color .45s var(--ease);
+  position: relative; isolation: isolate; overflow: hidden;
+  background: var(--stage); color: var(--ink);
+  transition: background-color .7s var(--ease), color .7s var(--ease);
   padding-block: clamp(44px, 7vw, 96px) clamp(48px, 7vw, 100px);
 }
+.ambient { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+.vine { position: absolute; top: 90px; bottom: 0; width: 170px; z-index: 0; pointer-events: none; opacity: .5; }
+.vine svg { width: 100%; height: 100%; display: block; overflow: visible; }
+.vine-l { left: 0; }
+.vine-r { right: 0; transform: scaleX(-1); display: none; }
+@media (max-width: 899px) { .vine { opacity: .3; width: 120px; } }
+@media (min-width: 900px) { .vine-r { display: block; } .vine { width: 190px; } }
+.vine .st { fill: none; stroke: var(--leaf); stroke-width: 1.5; stroke-linecap: round; stroke-dasharray: 5 6; transition: stroke .7s ease; }
+.vine .lf { fill: var(--leaf); fill-opacity: .13; }
+.vine .nd { stroke: var(--leaf); fill: none; stroke-width: 1.5; stroke-linecap: round; }
+.closet-in { position: relative; z-index: 2; }
 .closet-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
 .closet-head .eyebrow { color: inherit; opacity: .72; }
 .closet-head h2 { font-size: clamp(2rem, 5vw, 3.4rem); line-height: 1.05; margin-top: 12px; }
@@ -129,38 +164,47 @@ a { color: inherit; }
   width: 48px; height: 48px; border-radius: 50%; background: none; border: 1px solid currentColor;
   display: grid; place-items: center; transition: background-color .2s ease, color .2s ease, opacity .2s ease, transform .15s ease;
 }
-.arrow:hover:not(:disabled) { background: var(--on-tone); color: var(--tone); }
+.arrow:hover:not(:disabled) { background: var(--ink); color: var(--stage); }
 .arrow:active:not(:disabled) { transform: scale(.94); }
 .arrow:disabled { opacity: .3; cursor: default; }
 .arrow svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 1.5; }
 
-.rail {
-  margin-top: clamp(24px, 4vw, 44px); overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory;
-  scrollbar-width: none; -webkit-overflow-scrolling: touch; overscroll-behavior-x: contain;
+.show { display: grid; grid-template-columns: minmax(0, 1fr); gap: 32px; margin-top: clamp(22px, 4vw, 44px); align-items: start; }
+@media (min-width: 900px) { .show { grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); gap: clamp(40px, 6vw, 88px); } }
+.stage-col { min-width: 0; }
+.stage {
+  position: relative; overflow: hidden; height: clamp(470px, 128vw, 700px); touch-action: pan-y;
+  border-radius: 3px; user-select: none; -webkit-user-select: none;
 }
-.rail::-webkit-scrollbar { display: none; }
-.rail-inner {
-  list-style: none; margin: 0; position: relative; display: flex; gap: clamp(18px, 3vw, 36px);
-  width: max-content; min-width: 100%; padding-top: 10px; padding-bottom: 24px;
-  padding-inline: calc(50% - var(--cw) / 2);
+.halo {
+  position: absolute; left: 50%; bottom: 0; width: 76%; height: 95%; transform: translateX(-50%);
+  background: var(--halo); border-radius: 50% 50% 0 0 / 27% 27% 0 0; transition: background-color .7s var(--ease);
 }
-.piece { flex: none; width: var(--cw); scroll-snap-align: center; transform-origin: 50% 0; opacity: .5; transform: scale(.9); transition: transform .32s var(--ease), opacity .32s var(--ease); }
-.piece.is-active { opacity: 1; transform: none; }
-.piece-btn { display: block; width: 100%; padding: 0; background: none; border: 0; text-align: center; }
-.piece .arch { box-shadow: 0 22px 40px -16px rgba(0, 0, 0, .5); }
-.piece-name { display: block; margin-top: 14px; font-size: .72rem; letter-spacing: .2em; text-transform: uppercase; opacity: .86; }
-.load-err { padding: 40px 0; text-align: center; opacity: .8; }
-
-.buy { display: grid; grid-template-columns: minmax(0, 1fr); gap: 40px; margin-top: clamp(20px, 4vw, 48px); align-items: start; }
-@media (min-width: 880px) { .buy { grid-template-columns: minmax(0, .95fr) minmax(0, 1.05fr); gap: clamp(40px, 7vw, 96px); } }
-.details { display: grid; grid-template-columns: 1.25fr 1fr; gap: 14px; align-items: end; }
-.details figure { margin: 0; min-width: 0; }
-.details .ph { overflow: hidden; border-radius: 3px; background: rgba(0, 0, 0, .18); }
-.details .ph.a { aspect-ratio: 1 / 1.08; }
-.details .ph.b { aspect-ratio: 5 / 7; }
-.details img { width: 100%; height: 100%; object-fit: cover; display: block; transition: opacity .18s ease; }
-.details img.fade { opacity: 0; }
-.details figcaption { margin-top: 10px; font-size: .68rem; letter-spacing: .18em; text-transform: uppercase; opacity: .72; }
+.ghost {
+  position: absolute; left: 0; right: 0; top: 7%; text-align: center; white-space: nowrap; overflow: hidden;
+  font-family: var(--font-display); font-size: clamp(4.6rem, 17vw, 10rem); line-height: 1; letter-spacing: -.01em;
+  color: var(--ink); opacity: .08; pointer-events: none;
+}
+.floor {
+  position: absolute; left: 50%; bottom: 5%; width: 36%; height: 16px; transform: translateX(-50%);
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, .42), rgba(0, 0, 0, 0) 70%); pointer-events: none;
+}
+.model { position: absolute; left: 0; right: 0; bottom: 6.5%; height: 91%; display: flex; justify-content: center; will-change: transform, opacity; }
+.model img { height: 100%; width: auto; max-width: none; display: block; filter: drop-shadow(0 14px 18px rgba(0, 0, 0, .18)); }
+.strip { list-style: none; margin: 18px 0 0; padding: 4px 4px 10px; display: flex; gap: clamp(10px, 2vw, 16px); overflow-x: auto; scrollbar-width: none; scroll-snap-type: x proximity; }
+.strip::-webkit-scrollbar { display: none; }
+.chip { flex: 1 0 0; min-width: 58px; max-width: 96px; scroll-snap-align: center; }
+.chip button { display: block; width: 100%; padding: 0; background: none; border: 0; text-align: center; }
+.chip .a {
+  display: block; position: relative; overflow: hidden; aspect-ratio: 3 / 4; background: var(--c);
+  border-radius: 999px 999px 6px 6px; box-shadow: 0 0 0 0 var(--ink); transition: box-shadow .25s ease, transform .3s var(--ease);
+}
+.chip button:hover .a { transform: translateY(-3px); }
+.chip img { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); height: 94%; width: auto; max-width: none; }
+.chip[aria-current="true"] .a { box-shadow: 0 0 0 2px var(--stage), 0 0 0 3.5px var(--ink); }
+.chip .n { display: block; margin-top: 9px; font-size: .62rem; letter-spacing: .16em; text-transform: uppercase; opacity: .72; }
+.chip[aria-current="true"] .n { opacity: 1; }
+.load-err { padding: 40px 0; text-align: center; opacity: .8; position: relative; z-index: 2; }
 
 .info { min-width: 0; max-width: 520px; }
 .count { font-size: .72rem; letter-spacing: .2em; text-transform: uppercase; opacity: .72; font-variant-numeric: tabular-nums; }
@@ -169,21 +213,27 @@ a { color: inherit; }
 .swatches { display: flex; align-items: center; gap: 12px; margin-top: 24px; }
 .swatches .lbl { font-size: .7rem; letter-spacing: .18em; text-transform: uppercase; opacity: .72; margin-right: 4px; min-width: 48px; }
 .sw {
-  width: 26px; height: 26px; border-radius: 50%; padding: 0; border: 1px solid rgba(255, 255, 255, .45);
-  box-shadow: 0 0 0 0 var(--on-tone); transition: box-shadow .2s ease, transform .15s ease;
+  width: 26px; height: 26px; border-radius: 50%; padding: 0; border: 1px solid color-mix(in srgb, var(--ink) 40%, transparent);
+  box-shadow: 0 0 0 0 var(--ink); transition: box-shadow .2s ease, transform .15s ease;
 }
 .sw:hover { transform: scale(1.08); }
-.sw[aria-pressed="true"] { box-shadow: 0 0 0 2px var(--tone), 0 0 0 3.5px var(--on-tone); }
+.sw[aria-pressed="true"] { box-shadow: 0 0 0 2px var(--stage), 0 0 0 3.5px var(--ink); }
 .desc { margin-top: 24px; font-weight: 300; font-size: 1.04rem; max-width: 34em; }
-.size-row { margin-top: 28px; }
+.details { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 24px; }
+.details figure { margin: 0; min-width: 0; }
+.details .ph { overflow: hidden; border-radius: 3px; aspect-ratio: 1 / 1; background: color-mix(in srgb, var(--ink) 10%, transparent); }
+.details img { width: 100%; height: 100%; object-fit: cover; display: block; transition: opacity .18s ease; }
+.details img.fade { opacity: 0; }
+.details figcaption { margin-top: 8px; font-size: .64rem; letter-spacing: .18em; text-transform: uppercase; opacity: .72; }
+.size-row { margin-top: 26px; }
 .size-row .lbl { font-size: .7rem; letter-spacing: .18em; text-transform: uppercase; opacity: .72; display: flex; justify-content: space-between; }
 .sizes { display: flex; gap: 10px; margin-top: 10px; }
 .size {
-  flex: 1; max-width: 92px; min-height: 48px; background: none; border: 1px solid color-mix(in srgb, var(--on-tone) 45%, transparent);
+  flex: 1; max-width: 92px; min-height: 48px; background: none; border: 1px solid color-mix(in srgb, var(--ink) 45%, transparent);
   letter-spacing: .12em; font-weight: 500; transition: background-color .18s ease, color .18s ease, border-color .18s ease;
 }
-.size:hover:not(:disabled) { border-color: var(--on-tone); }
-.size[aria-checked="true"] { background: var(--on-tone); color: var(--tone); border-color: var(--on-tone); }
+.size:hover:not(:disabled) { border-color: var(--ink); }
+.size[aria-checked="true"] { background: var(--ink); color: var(--stage); border-color: var(--ink); }
 .size:disabled { opacity: .35; text-decoration: line-through; cursor: default; }
 .sizes.need { animation: nudge .3s ease; }
 @keyframes nudge { 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
@@ -191,14 +241,14 @@ a { color: inherit; }
 .price { font-family: var(--font-display); font-size: 1.9rem; line-height: 1; font-variant-numeric: tabular-nums; }
 .price small { font-family: var(--font-body); font-size: .68rem; letter-spacing: .16em; opacity: .7; margin-left: 6px; }
 .btn-tone {
-  flex: 1; min-width: 180px; min-height: 54px; background: var(--on-tone); color: var(--tone); border: 1px solid var(--on-tone);
+  flex: 1; min-width: 180px; min-height: 54px; background: var(--ink); color: var(--stage); border: 1px solid var(--ink);
   font-size: .78rem; font-weight: 500; letter-spacing: .16em; text-transform: uppercase;
   transition: background-color .2s ease, color .2s ease, transform .15s ease;
 }
-.btn-tone:hover { background: transparent; color: var(--on-tone); }
+.btn-tone:hover { background: transparent; color: var(--ink); }
 .btn-tone:active { transform: scale(.98); }
 .status { min-height: 1.4em; margin-top: 10px; font-size: .86rem; opacity: .88; }
-.facts { list-style: none; margin: 26px 0 0; padding: 22px 0 0; border-top: 1px solid color-mix(in srgb, var(--on-tone) 28%, transparent); display: grid; gap: 8px; font-size: .88rem; font-weight: 300; }
+.facts { list-style: none; margin: 22px 0 0; padding: 20px 0 0; border-top: 1px solid color-mix(in srgb, var(--ink) 28%, transparent); display: grid; gap: 8px; font-size: .88rem; font-weight: 300; }
 .facts li { display: flex; gap: 12px; }
 .facts b { font-weight: 500; letter-spacing: .12em; text-transform: uppercase; font-size: .68rem; min-width: 110px; padding-top: 3px; opacity: .8; }
 
@@ -229,6 +279,20 @@ a { color: inherit; }
 .help-grid { display: grid; gap: 36px; grid-template-columns: minmax(0, 1fr); }
 @media (min-width: 900px) { .help-grid { grid-template-columns: minmax(0, .6fr) minmax(0, 1.4fr); gap: 80px; } }
 .help h2 { font-size: clamp(1.9rem, 4vw, 2.8rem); line-height: 1.08; }
+.contact-form { margin-top: 44px; padding: 28px; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; }
+.contact-form h3 { font-size: 1.4rem; margin-bottom: 8px; }
+.form-lede { color: var(--muted); font-size: .95rem; margin-bottom: 20px; }
+.contact-form label { display: block; font-size: .78rem; letter-spacing: .1em; text-transform: uppercase; font-weight: 500; margin-bottom: 16px; }
+.contact-form input, .contact-form textarea { display: block; width: 100%; margin-top: 8px; padding: 12px 14px; font: inherit; font-size: 1rem; letter-spacing: normal; text-transform: none; background: var(--bg); color: var(--fg); border: 1px solid var(--line); border-radius: 4px; }
+.contact-form textarea { resize: vertical; min-height: 100px; }
+.contact-form input:focus, .contact-form textarea:focus { outline: 2px solid var(--accent); outline-offset: 2px; border-color: var(--accent); }
+.form-err { color: #b3261e; font-size: .9rem; margin: 0 0 12px; }
+.form-ok { color: #1a7f37; font-size: .9rem; margin: 0 0 12px; }
+.preview-form { width: 100%; margin-top: 8px; }
+.preview-form label { font-size: .74rem; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 8px; }
+.preview-row { display: flex; gap: 8px; max-width: 420px; }
+.preview-row input { flex: 1; padding: 10px 14px; font: inherit; font-size: 1rem; background: var(--bg); color: var(--fg); border: 1px solid var(--line); border-radius: 4px; }
+.preview-row .btn { white-space: nowrap; }
 .faq details { border-bottom: 1px solid var(--line); }
 .faq details:first-child { border-top: 1px solid var(--line); }
 .faq summary { list-style: none; cursor: pointer; padding: 20px 0; display: flex; justify-content: space-between; gap: 20px; font-family: var(--font-display); font-size: 1.25rem; }
@@ -265,7 +329,8 @@ a { color: inherit; }
 .lines { list-style: none; margin: 0; padding: 0; }
 .drawer .lines { padding: 8px 24px; overflow-y: auto; flex: 1; }
 .line { display: grid; grid-template-columns: 76px minmax(0, 1fr) auto; gap: 16px; padding: 18px 0; border-bottom: 1px solid var(--line); }
-.line img { width: 76px; aspect-ratio: 2 / 3; object-fit: cover; border-radius: 3px; background: #EADFD3; }
+.th { display: block; position: relative; overflow: hidden; width: 76px; aspect-ratio: 2 / 3; border-radius: 999px 999px 3px 3px; background: var(--c); }
+.th img { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); height: 94%; width: auto; max-width: none; }
 .line h3 { font-size: 1.15rem; line-height: 1.2; }
 .line .m { font-size: .84rem; color: var(--muted); margin-top: 2px; }
 .qty { display: inline-flex; align-items: center; border: 1px solid var(--line); margin-top: 12px; }
@@ -338,7 +403,8 @@ a { color: inherit; }
   *, *::before, *::after { animation: none !important; transition-duration: .01ms !important; }
 }
 </style>
-
+</head>
+<body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
   <symbol id="mh" viewBox="0 0 80 70" overflow="visible">
     <g fill="currentColor">
@@ -370,23 +436,27 @@ a { color: inherit; }
     <section class="hero">
       <div class="wrap hero-grid">
         <div class="hero-copy">
-          <p class="eyebrow">Autumn 2026 preview &middot; Made in Pakistan</p>
+          <p class="eyebrow">Autumn 2026 preview</p>
           <h1>Embroidery you can live in.</h1>
-          <p class="lede">Matching sweatshirts and pants embroidered with gold thread, pearls and flowers. Designed by Hina, made in Pakistan, and cut for the woman who is already running the day.</p>
+          <p class="lede">Matching sweatshirts and pants embroidered with gold thread, pearls and flowers. Designed by Hina and cut for the woman who is already running the day.</p>
           <div class="cta-row">
             <a class="btn" href="#closet">Browse the closet</a>
             <a class="text-link" href="#craft">See the stitching</a>
           </div>
         </div>
         <div class="hero-art">
-          <button class="big" type="button" data-pick="0" aria-label="View the Navy Paisley set"><span class="arch"><img src="img/navy.jpg" alt="Model in the navy set with gold paisley embroidery" width="1024" height="1536"></span></button>
-          <button class="small" type="button" data-pick="1" aria-label="View the Ivory Pearl Vine set"><span class="arch"><img src="img/ivory.jpg" alt="Model in the ivory set with pearl and vine embroidery" width="1024" height="1536" loading="lazy"></span></button>
+          <button class="big" type="button" data-pick="0" aria-label="View the Navy Paisley set"><span class="arch" style="--c:#DDCDAE"><img src="img/navy-cut.webp" alt="Model in the navy set with gold paisley embroidery" width="521" height="1468" fetchpriority="high"></span></button>
+          <button class="small" type="button" data-pick="1" aria-label="View the Ivory Pearl Vine set"><span class="arch" style="--c:#34222E"><img src="img/ivory-cut.webp" alt="Model in the ivory set with pearl and vine embroidery" width="521" height="1468" loading="lazy"></span></button>
         </div>
       </div>
     </section>
 
     <section class="closet" id="closet" aria-labelledby="closetTitle">
-      <div class="wrap">
+      <canvas class="ambient" id="ambient" aria-hidden="true"></canvas>
+      <div class="vine vine-l" aria-hidden="true" id="vineL"></div>
+      <div class="vine vine-r" aria-hidden="true" id="vineR"></div>
+
+      <div class="wrap closet-in">
         <div class="closet-head">
           <div>
             <p class="eyebrow">The closet</p>
@@ -397,26 +467,31 @@ a { color: inherit; }
             <button class="arrow" id="next" type="button" aria-label="Next set"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button>
           </div>
         </div>
-      </div>
 
-      <div class="rail" id="rail" tabindex="0" aria-label="Browse the five sets. Use the arrow keys or swipe.">
-        <ul class="rail-inner" id="railInner"></ul>
-      </div>
-      <p class="load-err wrap" id="loadErr" hidden>The collection could not load. Please refresh the page.</p>
-
-      <div class="wrap">
-        <div class="buy">
-          <div class="details" aria-live="polite">
-            <figure><div class="ph a"><img id="d1" alt=""></div><figcaption id="c1"></figcaption></figure>
-            <figure><div class="ph b"><img id="d2" alt=""></div><figcaption id="c2"></figcaption></figure>
+        <div class="show">
+          <div class="stage-col">
+            <div class="stage" id="stage" tabindex="0" role="group" aria-roledescription="carousel" aria-label="Selected set. Use the arrow keys or swipe to change.">
+              <div class="halo"></div>
+              <div class="ghost" id="ghost" aria-hidden="true"></div>
+              <div class="floor" id="floor"></div>
+              <div class="model" id="model"><img id="modelImg" alt="" width="521" height="1468"></div>
+            </div>
+            <ul class="strip" id="strip" aria-label="Choose a set"></ul>
           </div>
 
           <div class="info">
-            <p class="count"><span id="cIdx">01</span> / 05</p>
-            <h3 id="pName"></h3>
+            <div aria-live="polite">
+              <p class="count"><span id="cIdx">01</span> / 05</p>
+              <h3 id="pName"></h3>
+            </div>
             <p class="fit" id="pFit"></p>
             <div class="swatches" id="swatches" role="group" aria-label="Colour"><span class="lbl" id="colorLbl"></span></div>
             <p class="desc" id="pDesc"></p>
+
+            <div class="details">
+              <figure><div class="ph"><img id="d1" alt=""></div><figcaption id="c1"></figcaption></figure>
+              <figure><div class="ph"><img id="d2" alt=""></div><figcaption id="c2"></figcaption></figure>
+            </div>
 
             <div class="size-row">
               <div class="lbl"><span id="sizeLbl">Size</span></div>
@@ -436,11 +511,12 @@ a { color: inherit; }
             <ul class="facts">
               <li><b>Includes</b><span>Sweatshirt and pants, sold as a set</span></li>
               <li><b>Sizes</b><span>S, M, L</span></li>
-              <li><b>Made in</b><span>Pakistan</span></li>
+              <li><b>Ships to</b><span>Canada and the United States</span></li>
             </ul>
           </div>
         </div>
       </div>
+      <p class="load-err wrap" id="loadErr" hidden>The collection could not load. Please refresh the page.</p>
     </section>
 
     <section class="craft" id="craft">
@@ -448,7 +524,7 @@ a { color: inherit; }
         <div class="craft-head">
           <p class="eyebrow">The embroidery</p>
           <h2>Look closely.</h2>
-          <p>Each design is Hina's own, worked in gold thread, seed pearls, sequins and soft florals, then finished in Pakistan. Every set carries it from the shoulder to the hem.</p>
+          <p>Each design is Hina's own, worked in gold thread, seed pearls, sequins and soft florals. Every set carries it from the shoulder to the hem.</p>
         </div>
         <div class="craft-grid">
           <figure class="c1"><div class="ph"><img src="img/navy-d1.jpg" alt="Gold paisley embroidery on a navy sweatshirt shoulder" loading="lazy"></div><figcaption>Gold thread on navy</figcaption></figure>
@@ -465,7 +541,7 @@ a { color: inherit; }
         <div>
           <p>HINA makes matching sets for busy mothers and working women. Soft enough for the whole day, finished well enough to be seen in, and quiet enough to wear again tomorrow.</p>
           <span class="sig" lang="ur" dir="rtl">حنا</span>
-          <div class="story-facts"><span>Designed by Hina</span><span>Made in Pakistan</span><span>Sizes S, M, L</span></div>
+          <div class="story-facts"><span>Designed by Hina</span><span>Sizes S, M, L</span><span>Ships to Canada and the US</span></div>
         </div>
       </div>
     </section>
@@ -474,12 +550,23 @@ a { color: inherit; }
       <div class="wrap help-grid">
         <h2>Questions, answered.</h2>
         <div class="faq">
-          <details><summary>Shipping</summary><p id="faqShip">We ship to Canada and the United States. Your rate is shown before you pay.</p></details>
-          <details><summary>Returns</summary><p id="faqReturns">Unworn sets in their original condition can be returned after delivery.</p></details>
+          <details><summary>Returns</summary><p id="faqReturns">Unworn sets in their original condition can be returned within 14 days of delivery.</p></details>
           <details><summary>Sizing</summary><p>Sets come in S, M and L. The sweatshirt and pants are sold together in the same size.</p></details>
           <details><summary>Caring for your set</summary><p>Wash cold, inside out, and lay flat to dry. Keep the iron away from the embroidery.</p></details>
-          <details><summary>Where is it made?</summary><p>Every set is embroidered and finished in Pakistan, to Hina's designs.</p></details>
+          <details><summary>Who designs HINA?</summary><p>Every design is Hina's own, from the first sketch of the embroidery to the final fit.</p></details>
           <details><summary>How do I pay?</summary><p>Payment happens on a secure Stripe page. HINA never sees or stores your card details.</p></details>
+        </div>
+        <div class="contact-form">
+          <h3>Write to us</h3>
+          <p class="form-lede">Questions about sizing, shipping, or a set you love? Send a message and we will get back to you.</p>
+          <form id="contactForm" novalidate>
+            <label>Your name<input type="text" id="cfName" name="name" required autocomplete="name"></label>
+            <label>Your email<input type="email" id="cfEmail" name="email" required autocomplete="email"></label>
+            <label>Message<textarea id="cfMsg" name="message" rows="4" required></textarea></label>
+            <p class="form-err" id="cfErr" hidden></p>
+            <p class="form-ok" id="cfOk" hidden>Message sent. We will reply soon.</p>
+            <button class="btn" type="submit" id="cfSend"><span id="cfSendLbl">Send message</span></button>
+          </form>
         </div>
       </div>
     </section>
@@ -488,8 +575,17 @@ a { color: inherit; }
   <footer class="foot">
     <div class="wrap">
       <a class="mark" href="#top" aria-label="HINA, back to top"><svg class="mark-h" aria-hidden="true"><use href="#mh"/></svg><span>INA</span></a>
-      <nav aria-label="Footer"><a href="#closet">Closet</a><a href="#craft">Craft</a><a href="#story">Story</a><a href="#help">Help</a><a id="contactLink" href="#help" hidden>Contact</a></nav>
-      <p class="fine">&copy; 2026 HINA. Embroidered sets, made in Pakistan. Secure payments by Stripe.</p>
+      <nav aria-label="Footer"><a href="#closet">Closet</a><a href="#craft">Craft</a><a href="#story">Story</a><a href="#help">Help</a><a href="/contact.html">Contact</a><a href="/size-guide.html">Size Guide</a><a href="/shipping-returns.html">Shipping &amp; Returns</a><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a></nav>
+      <form id="previewForm" class="preview-form" novalidate>
+        <label for="pvEmail">Get first word of new sets</label>
+        <div class="preview-row">
+          <input type="email" id="pvEmail" placeholder="Email address" required autocomplete="email">
+          <button class="btn" type="submit" id="pvSend"><span id="pvSendLbl">Join</span></button>
+        </div>
+        <p class="form-err" id="pvErr" hidden></p>
+        <p class="form-ok" id="pvOk" hidden>You are on the list.</p>
+      </form>
+      <p class="fine">&copy; 2026 HINA. Embroidered matching sets. Secure payments by Stripe.</p>
     </div>
   </footer>
 </div>
@@ -549,6 +645,8 @@ a { color: inherit; }
   <button class="btn" id="doneBtn" type="button">Keep browsing</button>
 </div>
 
+<noscript><p style="padding:24px;text-align:center">HINA needs JavaScript to show the collection. Please turn it on and reload.</p></noscript>
+
 <script>
 (function () {
   var CHECKOUT_API = "/api/checkout";
@@ -556,13 +654,15 @@ a { color: inherit; }
   var CAT = null, PIECES = [];
   var $ = function (s, r) { return (r || document).querySelector(s); };
   var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  var reduce = !!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
   var moneyWhole = new Intl.NumberFormat("en-CA", { style: "currency", currency: "CAD", minimumFractionDigits: 0, maximumFractionDigits: 0 });
   var moneyCents = new Intl.NumberFormat("en-CA", { style: "currency", currency: "CAD", minimumFractionDigits: 2, maximumFractionDigits: 2 });
   function fmt(cents) { return (cents % 100 === 0 ? moneyWhole : moneyCents).format(cents / 100); }
 
-  var closet = $("#closet"), rail = $("#rail"), inner = $("#railInner");
+  var closet = $("#closet");
+  var stageEl = $("#stage"), modelEl = $("#model"), modelImg = $("#modelImg"), floorEl = $("#floor"), ghostEl = $("#ghost");
   var page = $("#page"), drawer = $("#drawer"), co = $("#co"), done = $("#done"), scrim = $("#scrim");
-  var cur = 0, size = null, bag = [], country = "CA", items = [], sws = [], layer = "none", lastFocus = null;
+  var cur = 0, size = null, bag = [], country = "CA", chips = [], sws = [], layer = "none", lastFocus = null, seq = 0, running = [];
   var sizeBtns = $$(".size");
 
   /* ---------- Layers ---------- */
@@ -593,18 +693,104 @@ a { color: inherit; }
   }
   function piece(id) { return PIECES.filter(function (p) { return p.id === id; })[0]; }
 
-  /* ---------- Closet ---------- */
-  function buildRail() {
-    PIECES.forEach(function (p, i) {
-      var li = document.createElement("li");
-      li.className = "piece";
-      li.innerHTML = '<button class="piece-btn" type="button" aria-label="' + p.name + ', ' + p.color + '">' +
-        '<span class="arch"><img src="img/' + p.id + '.jpg" alt="Model wearing the ' + p.name + ' set" width="1024" height="1536"' + (i > 1 ? ' loading="lazy"' : '') + '></span>' +
-        '<span class="piece-name">' + p.name + '</span></button>';
-      li.firstChild.addEventListener("click", function () { go(i); });
-      inner.appendChild(li);
+  /* ---------- Ambient: falling leaves and beads, plus a vine that is stitched ---------- */
+  var cv = $("#ambient"), cx = cv.getContext ? cv.getContext("2d") : null;
+  var W = 0, H = 0, dpr = 1, P = [], running_ = false, last = 0, col = [166, 124, 46], tgt = [166, 124, 46];
+  function hexRgb(h) { h = h.replace("#", ""); return [parseInt(h.substr(0, 2), 16), parseInt(h.substr(2, 2), 16), parseInt(h.substr(4, 2), 16)]; }
+  function rnd(a, b) { return a + Math.random() * (b - a); }
+  function rgba(c, a) { return "rgba(" + Math.round(c[0]) + "," + Math.round(c[1]) + "," + Math.round(c[2]) + "," + a.toFixed(3) + ")"; }
+  function mk(initial) {
+    var depth = rnd(.55, 1.15);
+    return { x: rnd(0, W), y: initial ? rnd(0, H) : rnd(-60, -20), s: rnd(7, 15) * depth, vy: rnd(11, 24) * depth, amp: rnd(14, 46), w: rnd(.35, .7),
+      ph: rnd(0, 6.28), rot: rnd(0, 6.28), spin: rnd(-.22, .22), a: rnd(.3, .62) * Math.min(1, depth + .1), bead: Math.random() > .68, t: 0 };
+  }
+  function sizeCanvas() {
+    if (!cx) return;
+    var r = closet.getBoundingClientRect(); W = r.width; H = r.height;
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr); cx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    var n = Math.max(8, Math.min(20, Math.round(W / 80)));
+    while (P.length < n) P.push(mk(true));
+    P.length = n;
+    if (reduce) drawFrame(0);
+  }
+  function drawFrame(dt) {
+    cx.clearRect(0, 0, W, H);
+    for (var i = 0; i < P.length; i++) {
+      var p = P[i];
+      p.t += dt; p.y += p.vy * dt; p.rot += p.spin * dt;
+      if (p.y > H + 40) { P[i] = mk(false); continue; }
+      var sw = Math.sin(p.t * p.w + p.ph);
+      cx.save();
+      cx.translate(p.x + sw * p.amp, p.y);
+      cx.rotate(p.rot + sw * .5);
+      if (!p.bead) {
+        var s = p.s;
+        cx.beginPath(); cx.moveTo(0, -s); cx.quadraticCurveTo(s * .78, -s * .15, 0, s); cx.quadraticCurveTo(-s * .78, -s * .15, 0, -s);
+        cx.fillStyle = rgba(col, p.a * .22); cx.fill();
+        cx.setLineDash([2.4, 2.4]); cx.lineWidth = 1; cx.strokeStyle = rgba(col, p.a); cx.stroke();
+        cx.beginPath(); cx.moveTo(0, -s * .8); cx.lineTo(0, s * .8); cx.stroke();
+      } else {
+        cx.beginPath(); cx.arc(0, 0, p.s * .24, 0, 6.2832); cx.fillStyle = rgba(col, p.a * .85); cx.fill();
+        cx.beginPath(); cx.arc(-p.s * .07, -p.s * .08, p.s * .08, 0, 6.2832); cx.fillStyle = "rgba(255,255,255," + (p.a * .5).toFixed(3) + ")"; cx.fill();
+      }
+      cx.restore();
+    }
+  }
+  function tick(ts) {
+    if (!running_) return;
+    var dt = Math.min(.05, (ts - last) / 1000 || 0); last = ts;
+    var k = Math.min(1, dt * 2.5);
+    for (var i = 0; i < 3; i++) col[i] += (tgt[i] - col[i]) * k;
+    drawFrame(dt);
+    requestAnimationFrame(tick);
+  }
+  function startAmbient() { if (running_ || reduce || !cx) return; running_ = true; last = performance.now(); requestAnimationFrame(tick); }
+  function stopAmbient() { running_ = false; }
+  function setLeaf(hex) { tgt = hexRgb(hex); if (reduce) { col = tgt.slice(); if (cx && W) drawFrame(0); } }
+
+  function buildVines() {
+    var main = "M84 0 C20 110 150 190 84 300 C28 400 140 520 80 640 C40 740 120 820 76 900";
+    var leaves = [[66, 78, 195], [85, 150, -20], [103, 222, 28], [68, 378, 195], [84, 462, -15], [98, 550, 22], [69, 711, 195], [80, 778, -12], [90, 840, 25]];
+    ["L", "R"].forEach(function (side, n) {
+      var id = "vm" + side, delay = n ? "-12s" : "0s";
+      var lf = leaves.map(function (l) {
+        return '<g transform="translate(' + l[0] + ' ' + l[1] + ') rotate(' + l[2] + ')"><path class="lf st" d="M0 0 C8 -9 24 -9 34 0 C24 9 8 9 0 0Z"/><path class="st" d="M2 0 H30"/></g>';
+      }).join("");
+      var html = '<svg viewBox="0 0 160 900" preserveAspectRatio="xMidYMin meet" aria-hidden="true">' +
+        '<defs><mask id="' + id + '" maskUnits="userSpaceOnUse" x="-80" y="-20" width="320" height="940">' +
+        '<path d="' + main + '" fill="none" stroke="#fff" stroke-width="90" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1">' +
+        '<animate attributeName="stroke-dashoffset" values="1;0;0" keyTimes="0;.7;1" dur="26s" begin="' + delay + '" repeatCount="indefinite"/></path></mask>' +
+        '<path id="' + id + 'p" d="' + main + '"/></defs>' +
+        '<g class="sew">' +
+        '<g mask="url(#' + id + ')"><path class="st" d="' + main + '"/>' + lf + '</g>' +
+        '<g class="needle"><path class="nd" d="M0 0 L-18 0"/><ellipse class="nd" cx="-14" cy="0" rx="3" ry="1.2"/>' +
+        '<animateMotion dur="26s" begin="' + delay + '" repeatCount="indefinite" rotate="auto" keyPoints="0;1;1" keyTimes="0;.7;1" calcMode="linear"><mpath href="#' + id + 'p"/></animateMotion>' +
+        '<animate attributeName="opacity" values="1;1;0;0" keyTimes="0;.7;.74;1" dur="26s" begin="' + delay + '" repeatCount="indefinite"/></g>' +
+        '<animate attributeName="opacity" values="1;1;0;0" keyTimes="0;.86;.97;1" dur="26s" begin="' + delay + '" repeatCount="indefinite"/>' +
+        '</g></svg>';
+      $("#vine" + side).innerHTML = html;
     });
-    items = $$(".piece", inner);
+    if (reduce) {
+      $$(".vine animate, .vine animateMotion").forEach(function (a) { a.parentNode.removeChild(a); });
+      $$(".vine mask path").forEach(function (m) { m.setAttribute("stroke-dashoffset", "0"); });
+      $$(".vine .needle").forEach(function (n) { n.style.display = "none"; });
+    }
+  }
+
+  /* ---------- Closet ---------- */
+  var pre = {};
+  function preload() { PIECES.forEach(function (p) { var im = new Image(); im.src = "img/" + p.id + "-cut.webp"; pre[p.id] = im; }); }
+
+  function buildStrip() {
+    var ul = $("#strip");
+    PIECES.forEach(function (p, i) {
+      var li = document.createElement("li"); li.className = "chip"; li.setAttribute("aria-current", "false");
+      li.innerHTML = '<button type="button" aria-label="' + p.name + ', ' + p.color + '"><span class="a" style="--c:' + p.stage + '"><img src="img/' + p.id + '-thumb.webp" alt="" width="149" height="420" loading="lazy"></span><span class="n">' + p.color + '</span></button>';
+      li.firstChild.addEventListener("click", function () { go(i); });
+      ul.appendChild(li);
+    });
+    chips = $$(".chip", ul);
     var swWrap = $("#swatches");
     PIECES.forEach(function (p, i) {
       var b = document.createElement("button");
@@ -631,20 +817,19 @@ a { color: inherit; }
       var gone = out.indexOf(b.getAttribute("data-size")) > -1;
       b.disabled = gone; b.title = gone ? "Sold out" : "";
     });
-    if (size && out.indexOf(size) > -1) {
-      size = null; sizeBtns.forEach(function (x) { x.setAttribute("aria-checked", "false"); });
-    }
+    if (size && out.indexOf(size) > -1) { size = null; sizeBtns.forEach(function (x) { x.setAttribute("aria-checked", "false"); }); }
   }
 
-  function select(i) {
-    cur = i;
-    var p = PIECES[i];
-    closet.style.setProperty("--tone", p.tone);
-    closet.style.setProperty("--on-tone", p.on);
-    items.forEach(function (li, k) {
-      li.classList.toggle("is-active", k === i);
-      li.firstChild.setAttribute("aria-current", k === i ? "true" : "false");
-    });
+  function applyTheme(p) {
+    closet.style.setProperty("--stage", p.stage);
+    closet.style.setProperty("--ink", p.ink);
+    closet.style.setProperty("--halo", p.halo);
+    closet.style.setProperty("--leaf", p.leaf);
+    setLeaf(p.leaf);
+  }
+
+  function paintText(p, i, first) {
+    chips.forEach(function (li, k) { li.setAttribute("aria-current", k === i ? "true" : "false"); });
     sws.forEach(function (b, k) { b.setAttribute("aria-pressed", k === i ? "true" : "false"); });
     $("#cIdx").textContent = "0" + (i + 1);
     $("#pName").textContent = p.name;
@@ -653,51 +838,88 @@ a { color: inherit; }
     $("#pDesc").textContent = p.desc;
     $("#pPrice").textContent = fmt(p.price);
     $("#c1").textContent = p.details[0]; $("#c2").textContent = p.details[1];
-    swapImg($("#d1"), "img/" + p.id + "-d1.jpg", p.name + ", " + p.details[0].toLowerCase());
-    swapImg($("#d2"), "img/" + p.id + "-d2.jpg", p.name + ", " + p.details[1].toLowerCase());
+    ghostEl.textContent = p.color;
+    if (first) { $("#d1").src = "img/" + p.id + "-d1.jpg"; $("#d2").src = "img/" + p.id + "-d2.jpg"; }
+    else { swapImg($("#d1"), "img/" + p.id + "-d1.jpg", p.name + ", " + p.details[0].toLowerCase()); swapImg($("#d2"), "img/" + p.id + "-d2.jpg", p.name + ", " + p.details[1].toLowerCase()); }
+    $("#d1").alt = p.name + ", " + p.details[0].toLowerCase(); $("#d2").alt = p.name + ", " + p.details[1].toLowerCase();
     $("#prev").disabled = i === 0;
     $("#next").disabled = i === PIECES.length - 1;
     $("#status").textContent = "";
     updateSizes();
+    var cr = chips[i]; if (cr && cr.scrollIntoView && !first) { var s = $("#strip"); s.scrollTo({ left: cr.offsetLeft - s.clientWidth / 2 + cr.offsetWidth / 2, behavior: reduce ? "auto" : "smooth" }); }
   }
 
-  function scrollToIndex(i, behavior) {
-    var li = items[i]; if (!li) return;
-    rail.scrollTo({ left: li.offsetLeft + li.offsetWidth / 2 - rail.clientWidth / 2, behavior: behavior || "smooth" });
+  function cancelAnims() { running.forEach(function (a) { try { a.cancel(); } catch (e) {} }); running = []; }
+
+  function hop(dir, token) {
+    if (token !== seq) return;
+    cancelAnims();
+    var s = dir, E1 = "cubic-bezier(.2,.7,.3,1)", E2 = "cubic-bezier(.5,0,.9,.6)";
+    // Two small hops from the side, then a settle. Rises ease out, falls ease in, landings squash a little.
+    running.push(modelEl.animate([
+      { offset: 0,   opacity: 0, transform: "translate(" + (s * 84) + "px, 30px) scale(.93) rotate(" + (s * 1.5) + "deg)", easing: E1 },
+      { offset: .24, opacity: 1, transform: "translate(" + (s * 50) + "px, -30px) scale(.965) rotate(" + (-s * 1) + "deg)", easing: E2 },
+      { offset: .42, opacity: 1, transform: "translate(" + (s * 32) + "px, 0) scale(1.012, .985) rotate(" + (s * .5) + "deg)", easing: E1 },
+      { offset: .62, opacity: 1, transform: "translate(" + (s * 16) + "px, -18px) scale(.995) rotate(" + (-s * .6) + "deg)", easing: E2 },
+      { offset: .82, opacity: 1, transform: "translate(" + (s * 4) + "px, 0) scale(1.006, .99) rotate(" + (s * .2) + "deg)", easing: "ease-out" },
+      { offset: 1,   opacity: 1, transform: "translate(0, 0) scale(1) rotate(0deg)" }
+    ], { duration: 1100, fill: "both" }));
+    running.push(floorEl.animate([
+      { offset: 0,   opacity: 0, transform: "translateX(calc(-50% + " + (s * 84) + "px)) scale(.7)", easing: E1 },
+      { offset: .24, opacity: .55, transform: "translateX(calc(-50% + " + (s * 50) + "px)) scale(.72)", easing: E2 },
+      { offset: .42, opacity: 1, transform: "translateX(calc(-50% + " + (s * 32) + "px)) scale(1.05)", easing: E1 },
+      { offset: .62, opacity: .75, transform: "translateX(calc(-50% + " + (s * 16) + "px)) scale(.85)", easing: E2 },
+      { offset: .82, opacity: 1, transform: "translateX(calc(-50% + " + (s * 4) + "px)) scale(1.02)", easing: "ease-out" },
+      { offset: 1,   opacity: 1, transform: "translateX(-50%) scale(1)" }
+    ], { duration: 1100, fill: "both" }));
+    running.push(ghostEl.animate([{ opacity: 0, transform: "translateY(12px)" }, { opacity: 1, transform: "none" }], { duration: 800, easing: "ease-out", fill: "backwards" }));
   }
-  function go(i, behavior) {
-    i = Math.max(0, Math.min(PIECES.length - 1, i));
-    if (i !== cur) select(i);
-    scrollToIndex(i, behavior);
+
+  function select(i, o) {
+    o = o || {};
+    var prev = cur;
+    if (!o.first && i === prev) return;
+    cur = i;
+    var p = PIECES[i], dir = o.dir || (i >= prev ? 1 : -1), token = ++seq;
+    applyTheme(p); paintText(p, i, !!o.first);
+    var src = "img/" + p.id + "-cut.webp", alt = "Model wearing the " + p.name + " set";
+    if (o.first || reduce || !modelEl.animate) { modelImg.src = src; modelImg.alt = alt; return; }
+    cancelAnims();
+    running.push(floorEl.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 220, fill: "forwards" }));
+    var out = modelEl.animate([
+      { opacity: 1, transform: "translate(0, 0) scale(1)" },
+      { opacity: 0, transform: "translate(" + (-dir * 46) + "px, 6px) scale(.97)" }
+    ], { duration: 240, easing: "cubic-bezier(.4,0,1,1)", fill: "forwards" });
+    running.push(out);
+    out.onfinish = function () {
+      if (token !== seq) return;
+      modelImg.src = src; modelImg.alt = alt;
+      var go2 = function () { hop(dir, token); };
+      if (modelImg.decode) modelImg.decode().then(go2, go2); else go2();
+    };
   }
+  function go(i) { i = Math.max(0, Math.min(PIECES.length - 1, i)); if (i !== cur) select(i); }
 
   function bindCloset() {
-    var ticking = false;
-    rail.addEventListener("scroll", function () {
-      if (ticking) return; ticking = true;
-      requestAnimationFrame(function () {
-        ticking = false;
-        var mid = rail.scrollLeft + rail.clientWidth / 2, best = 0, bd = 1e9;
-        items.forEach(function (li, k) {
-          var d = Math.abs(li.offsetLeft + li.offsetWidth / 2 - mid);
-          if (d < bd) { bd = d; best = k; }
-        });
-        if (best !== cur) select(best);
-      });
-    }, { passive: true });
     $("#prev").addEventListener("click", function () { go(cur - 1); });
     $("#next").addEventListener("click", function () { go(cur + 1); });
-    rail.addEventListener("keydown", function (e) {
+    stageEl.addEventListener("keydown", function (e) {
       if (e.key === "ArrowRight") { e.preventDefault(); go(cur + 1); }
       if (e.key === "ArrowLeft") { e.preventDefault(); go(cur - 1); }
     });
-    window.addEventListener("resize", function () { scrollToIndex(cur, "auto"); });
+    var sx = null, sy = null;
+    stageEl.addEventListener("pointerdown", function (e) { sx = e.clientX; sy = e.clientY; });
+    stageEl.addEventListener("pointerup", function (e) {
+      if (sx === null) return;
+      var dx = e.clientX - sx, dy = e.clientY - sy; sx = null;
+      if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.4) go(cur + (dx < 0 ? 1 : -1));
+    });
+    stageEl.addEventListener("pointercancel", function () { sx = null; });
     $$("[data-pick]").forEach(function (b) {
       b.addEventListener("click", function () {
         var i = +b.getAttribute("data-pick");
-        select(i);
-        closet.scrollIntoView({ behavior: "smooth", block: "start" });
-        setTimeout(function () { scrollToIndex(i, "auto"); }, 0);
+        closet.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+        setTimeout(function () { go(i); }, reduce ? 0 : 450);
       });
     });
     sizeBtns.forEach(function (b) {
@@ -718,6 +940,11 @@ a { color: inherit; }
       if (found) found.qty = Math.min(9, found.qty + 1); else bag.push({ id: p.id, size: size, qty: 1 });
       save(); renderAll(); setLayer("bag", "#toCheckout");
     });
+    if (window.IntersectionObserver) {
+      new IntersectionObserver(function (en) { if (en[0].isIntersecting) startAmbient(); else stopAmbient(); }, { rootMargin: "120px" }).observe(closet);
+    } else { startAmbient(); }
+    document.addEventListener("visibilitychange", function () { if (document.hidden) stopAmbient(); });
+    if (window.ResizeObserver) new ResizeObserver(sizeCanvas).observe(closet); else window.addEventListener("resize", sizeCanvas);
   }
 
   /* ---------- Bag and checkout review ---------- */
@@ -727,7 +954,7 @@ a { color: inherit; }
       var p = piece(l.id);
       var li = document.createElement("li");
       li.className = "line";
-      li.innerHTML = '<img src="img/' + p.id + '.jpg" alt="">' +
+      li.innerHTML = '<span class="th" style="--c:' + p.stage + '"><img src="img/' + p.id + '-thumb.webp" alt=""></span>' +
         '<div><h3>' + p.name + '</h3><p class="m">' + p.color + ' &middot; Size ' + l.size + '</p>' +
         '<div class="qty"><button type="button" aria-label="Fewer">&minus;</button><span aria-live="polite">' + l.qty + '</span><button type="button" aria-label="More">+</button></div></div>' +
         '<div class="r"><span>' + fmt(p.price * l.qty) + '</span><button class="rm" type="button">Remove</button></div>';
@@ -825,16 +1052,72 @@ a { color: inherit; }
   }
 
   /* ---------- Start ---------- */
+  buildVines();
+  sizeCanvas();
   fetch("catalog.json").then(function (r) { if (!r.ok) throw new Error("catalog"); return r.json(); }).then(function (c) {
     CAT = c; PIECES = c.pieces;
     if (!CAT.shipping[country]) country = Object.keys(CAT.shipping)[0];
-    load(); buildRail(); buildShip(); bindCloset(); fillHelp();
-    renderAll(); select(0);
-    requestAnimationFrame(function () { scrollToIndex(0, "auto"); });
-    window.addEventListener("load", function () { scrollToIndex(cur, "auto"); });
+    load(); preload(); buildStrip(); buildShip(); bindCloset(); fillHelp();
+    renderAll(); select(0, { first: true });
     handleReturn();
   }).catch(function () {
     $("#loadErr").hidden = false;
   });
+
+  /* ---------- Contact form ---------- */
+  (function () {
+    var form = $("#contactForm"); if (!form) return;
+    var sendBtn = $("#cfSend"), sendLbl = $("#cfSendLbl"), err = $("#cfErr"), ok = $("#cfOk");
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      err.hidden = true; ok.hidden = true;
+      var name = $("#cfName").value.trim(), email = $("#cfEmail").value.trim(), message = $("#cfMsg").value.trim();
+      function fail(msg) { err.textContent = msg; err.hidden = false; sendBtn.disabled = false; sendLbl.textContent = "Send message"; }
+      if (!name) return fail("Please enter your name.");
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return fail("Please enter a valid email address.");
+      if (!message) return fail("Please enter a message.");
+      sendBtn.disabled = true; sendLbl.textContent = "Sending";
+      fetch("/api/contact", {
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: name, email: email, message: message })
+      }).then(function (r) {
+        return r.json().then(function (j) { return { ok: r.ok, j: j }; }, function () { return { ok: false, j: {} }; });
+      }).then(function (res) {
+        if (res.ok && res.j && res.j.ok) {
+          ok.hidden = false; form.reset(); sendBtn.disabled = false; sendLbl.textContent = "Send message";
+        } else {
+          fail(res.j && res.j.error ? res.j.error : "We could not send your message. Please try again.");
+        }
+      }).catch(function () { fail("We could not send your message. Please try again."); });
+    });
+  })();
+
+  /* ---------- Preview list signup ---------- */
+  (function () {
+    var form = $("#previewForm"); if (!form) return;
+    var sendBtn = $("#pvSend"), sendLbl = $("#pvSendLbl"), err = $("#pvErr"), ok = $("#pvOk");
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      err.hidden = true; ok.hidden = true;
+      var email = $("#pvEmail").value.trim();
+      function fail(msg) { err.textContent = msg; err.hidden = false; sendBtn.disabled = false; sendLbl.textContent = "Join"; }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return fail("Please enter a valid email address.");
+      sendBtn.disabled = true; sendLbl.textContent = "Joining";
+      fetch("/api/preview", {
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: email })
+      }).then(function (r) {
+        return r.json().then(function (j) { return { ok: r.ok, j: j }; }, function () { return { ok: false, j: {} }; });
+      }).then(function (res) {
+        if (res.ok && res.j && res.j.ok) {
+          ok.hidden = false; form.reset(); sendBtn.disabled = false; sendLbl.textContent = "Join";
+        } else {
+          fail(res.j && res.j.error ? res.j.error : "We could not add you. Please try again.");
+        }
+      }).catch(function () { fail("We could not add you. Please try again."); });
+    });
+  })();
 })();
 </script>
+</body>
+</html>
