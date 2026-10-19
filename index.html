@@ -130,6 +130,10 @@ a { color: inherit; }
 .hero-art .small { position: absolute; left: 0; bottom: 0; width: 42%; border: 7px solid var(--bg); padding: 0; background: var(--bg); border-radius: 50% 50% 4px 4px / 33.333% 33.333% 4px 4px; transition: transform .35s var(--ease); }
 .hero-art .small .arch { border-radius: inherit; }
 .hero-art button:hover { transform: translateY(-4px); }
+.hero-art .vid { position: relative; width: 76%; margin-left: auto; }
+.hero-art .vid .arch { box-shadow: 0 24px 50px -28px rgba(20,24,43,.55); }
+.hero-art .vid video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+.vid-cap { position: absolute; left: 50%; bottom: 16px; transform: translateX(-50%); white-space: nowrap; font-size: .62rem; letter-spacing: .2em; text-transform: uppercase; text-decoration: none; color: #F3EBE0; background: rgba(20,24,43,.55); padding: 9px 14px; border-radius: 99px; backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
 
 @keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
 .hero-copy > * { animation: rise .7s var(--ease) backwards; }
@@ -445,7 +449,7 @@ a { color: inherit; }
           </div>
         </div>
         <div class="hero-art">
-          <button class="big" type="button" data-pick="0" aria-label="View the Navy Paisley set"><span class="arch" style="--c:#DDCDAE"><img src="img/navy-cut.webp" alt="Model in the navy set with gold paisley embroidery" width="521" height="1468" fetchpriority="high"></span></button>
+          <div class="big vid"><span class="arch" style="--c:#14182B"><video id="welcomeVid" muted playsinline loop autoplay preload="auto" poster="video/welcome-poster.webp" aria-label="Gold thread being stitched into a navy sweatshirt"><source src="video/welcome.mp4" type="video/mp4"></video></span><a class="vid-cap" href="#closet">Shop the navy set</a></div>
           <button class="small" type="button" data-pick="1" aria-label="View the Ivory Pearl Vine set"><span class="arch" style="--c:#34222E"><img src="img/ivory-cut.webp" alt="Model in the ivory set with pearl and vine embroidery" width="521" height="1468" loading="lazy"></span></button>
         </div>
       </div>
@@ -474,7 +478,7 @@ a { color: inherit; }
               <div class="halo"></div>
               <div class="ghost" id="ghost" aria-hidden="true"></div>
               <div class="floor" id="floor"></div>
-              <div class="model" id="model"><img id="modelImg" alt="" width="521" height="1468"></div>
+              <div class="model" id="model"><img id="modelImg" src="img/navy-cut.webp" alt="" width="521" height="1468" fetchpriority="high" decoding="async"></div>
             </div>
             <ul class="strip" id="strip" aria-label="Choose a set"></ul>
           </div>
@@ -489,8 +493,8 @@ a { color: inherit; }
             <p class="desc" id="pDesc"></p>
 
             <div class="details">
-              <figure><div class="ph"><img id="d1" alt=""></div><figcaption id="c1"></figcaption></figure>
-              <figure><div class="ph"><img id="d2" alt=""></div><figcaption id="c2"></figcaption></figure>
+              <figure><div class="ph"><img id="d1" src="img/navy-d1.jpg" alt=""></div><figcaption id="c1"></figcaption></figure>
+              <figure><div class="ph"><img id="d2" src="img/navy-d2.jpg" alt=""></div><figcaption id="c2"></figcaption></figure>
             </div>
 
             <div class="size-row">
@@ -900,6 +904,24 @@ a { color: inherit; }
   }
   function go(i) { i = Math.max(0, Math.min(PIECES.length - 1, i)); if (i !== cur) select(i); }
 
+  // Closet images: if one fails (slow host, renamed file), retry once, then fall back to the original photo.
+  [modelImg, $("#d1"), $("#d2")].forEach(function (im) {
+    im.addEventListener("error", function () {
+      var u = im.getAttribute("src") || "";
+      if (!u || im.dataset.retry === u) { if (im === modelImg) { var m = u.match(/img\/([a-z]+)-cut/); if (m && !im.dataset.fb) { im.dataset.fb = 1; im.src = "img/" + m[1] + ".jpg"; } } return; }
+      im.dataset.retry = u; setTimeout(function () { im.src = u + (u.indexOf("?") < 0 ? "?r=1" : "&r=1"); }, 600);
+    });
+  });
+  // Welcome video: plays muted, pauses when off screen, stays on its poster for reduced motion.
+  (function () {
+    var v = $("#welcomeVid"); if (!v) return;
+    v.muted = true;
+    if (reduce) { v.removeAttribute("autoplay"); v.pause(); return; }
+    var go = function () { var pr = v.play(); if (pr && pr.catch) pr.catch(function () {}); };
+    go(); v.addEventListener("canplay", go, { once: true });
+    if (window.IntersectionObserver) new IntersectionObserver(function (en) { if (en[0].isIntersecting) go(); else v.pause(); }, { threshold: .15 }).observe(v);
+  })();
+
   function bindCloset() {
     $("#prev").addEventListener("click", function () { go(cur - 1); });
     $("#next").addEventListener("click", function () { go(cur + 1); });
@@ -1066,12 +1088,15 @@ a { color: inherit; }
 
   /* ---------- Contact form ---------- */
   (function () {
-    var form = $("#contactForm"); if (!form) return;
-    var sendBtn = $("#cfSend"), sendLbl = $("#cfSendLbl"), err = $("#cfErr"), ok = $("#cfOk");
+    var form = document.getElementById("contactForm"); if (!form) return;
+    var sendBtn = document.getElementById("cfSend"), sendLbl = document.getElementById("cfSendLbl");
+    var err = document.getElementById("cfErr"), ok = document.getElementById("cfOk");
     form.addEventListener("submit", function (e) {
       e.preventDefault();
       err.hidden = true; ok.hidden = true;
-      var name = $("#cfName").value.trim(), email = $("#cfEmail").value.trim(), message = $("#cfMsg").value.trim();
+      var name = document.getElementById("cfName").value.trim();
+      var email = document.getElementById("cfEmail").value.trim();
+      var message = document.getElementById("cfMsg").value.trim();
       function fail(msg) { err.textContent = msg; err.hidden = false; sendBtn.disabled = false; sendLbl.textContent = "Send message"; }
       if (!name) return fail("Please enter your name.");
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return fail("Please enter a valid email address.");
@@ -1094,12 +1119,13 @@ a { color: inherit; }
 
   /* ---------- Preview list signup ---------- */
   (function () {
-    var form = $("#previewForm"); if (!form) return;
-    var sendBtn = $("#pvSend"), sendLbl = $("#pvSendLbl"), err = $("#pvErr"), ok = $("#pvOk");
+    var form = document.getElementById("previewForm"); if (!form) return;
+    var sendBtn = document.getElementById("pvSend"), sendLbl = document.getElementById("pvSendLbl");
+    var err = document.getElementById("pvErr"), ok = document.getElementById("pvOk");
     form.addEventListener("submit", function (e) {
       e.preventDefault();
       err.hidden = true; ok.hidden = true;
-      var email = $("#pvEmail").value.trim();
+      var email = document.getElementById("pvEmail").value.trim();
       function fail(msg) { err.textContent = msg; err.hidden = false; sendBtn.disabled = false; sendLbl.textContent = "Join"; }
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return fail("Please enter a valid email address.");
       sendBtn.disabled = true; sendLbl.textContent = "Joining";
