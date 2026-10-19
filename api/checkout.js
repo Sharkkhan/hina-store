@@ -68,6 +68,12 @@ module.exports = async function handler(req, res) {
     summary.push(p.id + ":" + it.size + "x" + qty);
   }
 
+  // Optional: set STRIPE_TAX=1 (after enabling Stripe Tax in the Dashboard) to add GST/HST/sales tax automatically.
+  const tax = process.env.STRIPE_TAX === "1";
+  if (tax) {
+    lineItems.forEach((li) => { li.price_data.tax_behavior = "exclusive"; });
+  }
+
   try {
     const stripe = new Stripe(key);
     const session = await stripe.checkout.sessions.create({
@@ -80,10 +86,12 @@ module.exports = async function handler(req, res) {
             type: "fixed_amount",
             fixed_amount: { amount: ship.amount, currency: catalog.currency },
             display_name: ship.label,
+            ...(tax ? { tax_behavior: "exclusive" } : {}),
           },
         },
       ],
       phone_number_collection: { enabled: true },
+      ...(tax ? { automatic_tax: { enabled: true } } : {}),
       allow_promotion_codes: true,
       metadata: { order: summary.join(" ").slice(0, 480) },
       success_url: origin + "/?order=success&session_id={CHECKOUT_SESSION_ID}",

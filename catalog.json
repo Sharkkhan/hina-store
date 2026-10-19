@@ -6,7 +6,7 @@
     "US": { "label": "Standard shipping, United States", "amount": 2500 }
   },
   "returnsDays": 14,
-  "contactEmail": "",
+  "contactEmail": "contact@shophinas.com",
   "pieces": [
     {
       "id": "navy", "name": "Navy Paisley", "color": "Navy",
